@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collegiate Tennis Alumni Network</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        /* ── Tokens ── */
+        :root {
+            --navy:       #1e2d3d;
+            --navy-dark:  #131e29;
+            --orange:     #c8913a;
+            --orange-dark:#a87530;
+            --green:      #2e7d52;
+            --green-bg:   #256642;
+            --text:       #1e2d3d;
+            --muted:      #6b7a8a;
+            --bg:         #ede9e3;
+            --line:       #ddd8d0;
+            --surface:    #f9f7f4;
+            --header-bg:  #f9f7f4;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --navy:       #8aaccc;
+                --navy-dark:  #0d151e;
+                --orange:     #d4a055;
+                --orange-dark:#c8913a;
+                --green:      #4aba7a;
+                --green-bg:   #1e6640;
+                --text:       #e0dbd4;
+                --muted:      #8a9aaa;
+                --bg:         #0f1822;
+                --line:       #1e2e3e;
+                --surface:    #162030;
+                --header-bg:  #0d1520;
+            }
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8e030'/%3E%3Cpath d='M4,20 C10,6 22,6 28,20' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 16 16, auto;
+        }
+
+        /* ── Focus ring ── */
+        :focus-visible {
+            outline: 3px solid var(--orange);
+            outline-offset: 3px;
+            border-radius: 3px;
+        }
+        /* suppress for mouse users */
+        :focus:not(:focus-visible) { outline: none; }
+
+        /* ── Layout ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .row { display: flex; flex-wrap: wrap; gap: 30px; }
+        .col { flex: 1 1 0; min-width: 0; }
+        .col-60 { flex: 1 1 60%; }
+        .col-40 { flex: 1 1 35%; }
+
+        /* ── Header ── */
+        .main-header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .header-wrap {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 20px; max-width: 1200px; margin: 0 auto;
+        }
+        .logo-placeholder {
+            font-family: Georgia, serif; font-size: 22px; font-weight: bold;
+            color: var(--navy); text-decoration: none; text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .logo-placeholder span { color: var(--orange); }
+
+        .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 10px; }
+        .nav-toggle span { display: block; width: 26px; height: 3px; margin: 5px 0; background: var(--navy); transition: all 0.3s; }
+        .nav-list { display: flex; margin: 0; padding: 0; list-style: none; }
+        .nav-item { position: relative; margin-left: 25px; }
+        .nav-link {
+            display: inline-block; color: var(--text); text-decoration: none;
+            font-weight: 600; font-size: 15px; padding: 10px 0; transition: color 0.2s; cursor: pointer;
+        }
+        .nav-link:hover { color: var(--navy); }
+        .dropdown {
+            visibility: hidden; opacity: 0; position: absolute; top: 100%; left: 0;
+            background: var(--surface); min-width: 220px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.14); padding: 8px 0; margin: 0;
+            list-style: none; border-radius: 4px; border-top: 3px solid var(--orange);
+            transform: translateY(10px);
+            transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+        }
+        .dropdown a {
+            display: block; padding: 11px 20px; color: var(--text); text-decoration: none;
+            font-size: 14px; font-weight: 500; transition: background 0.15s, color 0.15s;
+        }
+        .dropdown a:hover { background: var(--bg); color: var(--navy); }
+        .nav-item:hover .dropdown,
+        .nav-item:focus-within .dropdown,
+        .nav-item.open .dropdown { visibility: visible; opacity: 1; transform: translateY(0); }
+
+        /* ── Hero ── */
+        .hero {
+            background:
+              linear-gradient(rgba(11,60,93,0.87), rgba(26,37,47,0.92)),
+              #1e2d3d url('https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&q=80&w=1200') center/cover no-repeat;
+            color: #fff; padding: 110px 0; text-align: center;
+        }
+        .hero h1 {
+            font-family: Georgia, serif; font-size: clamp(30px, 5vw, 48px);
+            margin: 0 0 18px; font-weight: normal; letter-spacing: -0.5px;
+        }
+        .hero p {
+            font-size: clamp(16px, 2.5vw, 19px); max-width: 680px;
+            margin: 0 auto 40px; color: #d8e8f0;
+        }
+        .hero-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
+
+        /* ── Buttons ── */
+        .btn {
+            display: inline-block; padding: 14px 32px; border-radius: 6px;
+            font-weight: 700; text-decoration: none; font-size: 15px; transition: all 0.25s;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background-color: var(--orange); color: #fff; border-color: var(--orange); }
+        .btn-primary:hover { background-color: var(--orange-dark); border-color: var(--orange-dark); }
+        .btn-secondary { border-color: rgba(255,255,255,0.7); color: #fff; }
+        .btn-secondary:hover { background-color: #fff; color: var(--navy-dark); border-color: #fff; }
+
+        /* ── Sections ── */
+        .section-block { padding: 80px 0; background: var(--surface); border-bottom: 1px solid var(--line); }
+        .section-block.alt { background: var(--bg); }
+        .section-title {
+            font-family: Georgia, serif; font-size: clamp(24px, 4vw, 30px);
+            color: var(--navy); margin: 0 0 12px; padding-left: 16px;
+            border-left: 4px solid var(--orange);
+        }
+        .section-subtitle { font-size: 16px; color: var(--muted); margin: 0 0 36px; }
+
+        .vivid-section { background: var(--orange) !important; color: #fff; }
+        .vivid-section .section-title { color: #fff; border-left-color: rgba(255,255,255,0.6); }
+        .vivid-section .section-subtitle { color: rgba(255,255,255,0.8); }
+
+        /* ── Stat card ── */
+        .stat-card {
+            background: var(--navy); color: #fff; border-radius: 8px;
+            padding: 36px 28px; text-align: center;
+            box-shadow: 0 8px 24px rgba(11,60,93,0.18);
+        }
+        .stat-card h3 { color: #fff; margin: 0 0 8px; font-size: 17px; }
+        .stat-number { font-size: 44px; font-weight: 800; margin: 8px 0; color: var(--orange); line-height: 1; }
+        .stat-card p.small { margin: 0; color: #b8cdd9; font-size: 14px; }
+
+        /* ── Map ── */
+        .map-wrap {
+            border-radius: 10px; overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.10); border: 1px solid var(--line);
+        }
+        #map-svg-container { width: 100%; display: block; position: relative; }
+        #map-svg-container svg { width: 100%; display: block; }
+
+        .map-legend {
+            display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+            padding: 14px 20px; background: var(--surface);
+            border-top: 1px solid var(--line); font-size: 13px; color: var(--muted);
+        }
+        .legend-item { display: flex; align-items: center; gap: 7px; }
+        .legend-dot { border-radius: 50%; flex-shrink: 0; opacity: 0.85; }
+
+        #map-tooltip {
+            display: none; position: fixed; z-index: 9999;
+            background: var(--navy-dark); color: #fff;
+            padding: 8px 13px; border-radius: 6px; font-size: 13px;
+            pointer-events: none; white-space: nowrap;
+        }
+        #map-tooltip .tt-city { font-weight: 700; }
+        #map-tooltip .tt-count { color: var(--orange); margin-top: 2px; font-size: 12px; }
+
+        /* ── News cards ── */
+        .card {
+            display: flex; flex-direction: column; background: var(--surface);
+            border: 1px solid var(--line); border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05); overflow: hidden; height: 100%;
+        }
+        .card-body { padding: 24px; flex: 1; }
+        .card h3 { margin: 0 0 8px; color: var(--navy); font-size: 18px; }
+        .card-image { height: 160px; background: var(--line) center/cover no-repeat; }
+        .card-tag { font-size: 11px; color: var(--muted); margin: 0 0 8px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }
+        .card-text { font-size: 14px; margin: 0 0 14px; color: var(--muted); }
+        .read-more { color: var(--green); text-decoration: none; font-weight: 700; font-size: 14px; }
+        .read-more:hover { text-decoration: underline; }
+
+        /* ── Testimonials ── */
+        .testimonial-box {
+            background: var(--surface); padding: 28px; border: 1px solid var(--line);
+            border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); height: 100%;
+            border-top: 3px solid var(--orange);
+        }
+        .quote-text { font-style: italic; font-size: 16px; color: var(--muted); margin: 0; line-height: 1.7; }
+        .quote-author { margin: 16px 0 0; font-weight: 700; font-size: 14px; color: var(--navy); }
+
+        /* ── CTA ── */
+        .cta-section { background: var(--navy); color: #fff; text-align: center; padding: 80px 0; }
+        .cta-section .section-title { color: #fff; border-left-color: var(--orange); display: inline-block; }
+        .cta-section p { max-width: 580px; margin: 14px auto 32px; color: #c8dce8; }
+        .cta-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
+
+        /* ── Footer ── */
+        footer { background: var(--navy-dark); color: #c5cfd6; padding: 60px 0 28px; font-size: 14px; }
+        footer h4 { color: #fff; margin: 0 0 18px; font-size: 16px; font-family: Georgia, serif; }
+        footer ul { list-style: none; padding: 0; margin: 0; }
+        footer li { margin-bottom: 10px; }
+        footer a { color: #c5cfd6; text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: #fff; }
+        .footer-muted { color: #8fa5b2; }
+        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e2e3a; text-align: center; font-size: 12px; color: #6b8494; }
+
+        /* ── Who We Are prose ── */
+        .who-text p { margin: 0 0 16px; line-height: 1.75; }
+
+        /* ── Responsive ── */
+        @media (max-width: 860px) {
+            .nav-toggle { display: block; }
+            .nav-list {
+                position: absolute; top: 100%; left: 0; right: 0;
+                flex-direction: column; background: var(--header-bg);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.12); padding: 10px 0; display: none;
+            }
+            .nav-list.open { display: flex; }
+            .nav-item { margin: 0; }
+            .nav-link { display: block; padding: 14px 20px; }
+            .dropdown {
+                position: static; visibility: visible; opacity: 1; transform: none;
+                box-shadow: none; border-top: 0; min-width: 0; padding: 0;
+                max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+                background: var(--bg);
+            }
+            .nav-item.open .dropdown { max-height: 400px; }
+            .dropdown a { padding-left: 36px; }
+            .col-60, .col-40, .col { flex: 1 1 100%; }
+            .section-block { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="main-header">
+    <div class="header-wrap">
+        <a href="index.html" class="logo-placeholder">NCAA <span>Tennis</span> Alumni</a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+            <span></span><span></span><span></span>
+        </button>
+        <nav aria-label="Primary">
+            <ul class="nav-list" id="primary-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" aria-haspopup="true">About Us ▾</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Our Mission</a></li>
+                        <li><a href="#">Network Framework</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" aria-haspopup="true">Community ▾</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Who We Are</a></li>
+                        <li><a href="#">Testimonials</a></li>
+                        <li><a href="#">Chapters</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" aria-haspopup="true">Connect ▾</a>
+                    <ul class="dropdown">
+                        <li><a href="find-members2.html">Find Alumni Near You</a></li>
+                        <li><a href="join.html">Join Us</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" aria-haspopup="true">Opportunities ▾</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Reconnect with Alumni</a></li>
+                        <li><a href="#">Newsflash</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" aria-haspopup="true">Give ▾</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Donations</a></li>
+                        <li><a href="#">How We're Funded</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ── Hero ── -->
+<section class="hero">
+    <div class="container">
+        <h1>The Rally Doesn't End at Graduation</h1>
+        <p>Connecting 300+ former collegiate tennis student-athletes across regional chapters, divisions, and generations.</p>
+        <div class="hero-buttons">
+            <a href="join.html" class="btn btn-primary">Join Us</a>
+            <a href="find-members2.html" class="btn btn-secondary">Find Alumni Near You</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── Who We Are ── -->
+<section class="section-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-60 who-text">
+                <h2 class="section-title">Who We Are</h2>
+                <p>Built exclusively for former collegiate tennis players, this network keeps the competitive spirit, camaraderie, and professional collaboration alive long after the final match. Whether you played Division I, II, or III, our shared court experience unites us across generations.</p>
+                <p>Our regional chapters coordinate local meetups, hitting sessions, and professional networking events — so you always have a team behind you, wherever life takes you after graduation.</p>
+            </div>
+            <div class="col-40">
+                <div class="stat-card">
+                    <h3>Active Members</h3>
+                    <div class="stat-number">306</div>
+                    <p class="small">Varsity alumni across the US and abroad</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Member Density Map ── -->
+<section class="section-block alt">
+    <div class="container">
+        <h2 class="section-title">Where We Are</h2>
+        <p class="section-subtitle">Active alumni chapters mapped by member concentration. Click a city to find members.</p>
+        <div class="map-wrap">
+            <div id="map-svg-container" aria-label="US member density map"></div>
+            <div class="map-legend">
+                <span style="font-weight:600; color:var(--text);">Member density:</span>
+                <span class="legend-item"><span class="legend-dot" style="width:10px;height:10px;background:#5b9ec9;"></span> 1–4</span>
+                <span class="legend-item"><span class="legend-dot" style="width:14px;height:14px;background:#e67e22;"></span> 5–15</span>
+                <span class="legend-item"><span class="legend-dot" style="width:20px;height:20px;background:#c0392b;"></span> 16+</span>
+                <span class="legend-item"><span class="legend-dot" style="width:10px;height:10px;background:#2ecc71;"></span> You</span>
+                <span id="location-status" style="margin-left:auto;font-size:12px;color:var(--muted);">Click a pin to search that city</span>
+            </div>
+        </div>
+        <!-- Floating tooltip -->
+        <div id="map-tooltip"><div class="tt-city"></div><div class="tt-count"></div></div>
+    </div>
+</section>
+
+<!-- ── Opportunities ── -->
+<section class="section-block vivid-section">
+    <div class="container">
+        <h2 class="section-title">Opportunities &amp; Newsflash</h2>
+        <p class="section-subtitle">Member highlights, career advancements, and upcoming events.</p>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-image" role="img" aria-label="Alumni mixer event"
+                         style="background-image:url('https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=400');"></div>
+                    <div class="card-body">
+                        <p class="card-tag">Event • Coming Soon</p>
+                        <h3>Annual Alumni Mixer</h3>
+                        <p class="card-text">Registration opens next month for our nationwide multi-chapter summer networking tournament weekend.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-image" role="img" aria-label="Alumnus in professional setting"
+                         style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400');"></div>
+                    <div class="card-body">
+                        <p class="card-tag">Newsflash • Spotlight</p>
+                        <h3>Alumni Spotlight</h3>
+                        <p class="card-text">From the Finals to Capital Markets: how collegiate tennis prepared our Mid-Atlantic chair for the boardroom.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-image" role="img" aria-label="New chapter tennis courts"
+                         style="background-image:url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=400');"></div>
+                    <div class="card-body">
+                        <p class="card-tag">Chapter Update</p>
+                        <h3>New Chapters Formed</h3>
+                        <p class="card-text">Two new sub-chapters officially launching this month to coordinate local hitting and networking in their regions.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section class="section-block">
+    <div class="container">
+        <h2 class="section-title">Alumni Voices</h2>
+        <p class="section-subtitle">What our members say about staying connected.</p>
+        <div class="row">
+            <div class="col">
+                <div class="testimonial-box">
+                    <p class="quote-text">"Moving to a new city after graduation was intimidating, but through the local chapter I found hitting partners and a career mentor within a week."</p>
+                    <p class="quote-author">— Division I Alumnus, Class of '21</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="testimonial-box">
+                    <p class="quote-text">"The network keeps the competitive camaraderie alive. It's an incredible resource for mentorship and tracking how peers are shifting industries."</p>
+                    <p class="quote-author">— Division III All-American, Class of '18</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+    <div class="container">
+        <h2 class="section-title">Support the Network</h2>
+        <p>Discover how we're funded and invest back into programmatic support, alumni events, and undergraduate mentorship channels.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">Make a Donation</a>
+            <a href="#" class="btn btn-secondary">How We're Funded</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-60">
+                <h4>Collegiate Tennis Alumni Network</h4>
+                <p class="footer-muted">A professional and recreational collective unifying former collegiate tennis players across all divisions and chapters.</p>
+            </div>
+            <div class="col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="#">Who We Are</a></li>
+                    <li><a href="find-members2.html">Find Alumni Near Me</a></li>
+                    <li><a href="join.html">Join Us</a></li>
+                    <li><a href="#">Latest Newsflash</a></li>
+                    <li><a href="#">Financial Transparency</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:network@example.org">network@example.org</a></li>
+                    <li><strong>Support:</strong> <a href="mailto:support@example.org">support@example.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NCAA Tennis Alumni Network. Not affiliated with the National Collegiate Athletic Association.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script>
+const MAP_DATA = [{"city": "New York, New York", "count": 148, "lat": 40.7128, "lng": -74.006}, {"city": "United States", "count": 14, "lat": 39.5, "lng": -98.35}, {"city": "San Francisco, California", "count": 8, "lat": 37.7749, "lng": -122.4194}, {"city": "Los Angeles, California", "count": 6, "lat": 34.0522, "lng": -118.2437}, {"city": "Philadelphia, Pennsylvania", "count": 5, "lat": 39.9526, "lng": -75.1652}, {"city": "Atlanta, Georgia", "count": 5, "lat": 33.749, "lng": -84.388}, {"city": "Miami, Florida", "count": 5, "lat": 25.7617, "lng": -80.1918}, {"city": "Orlando, Florida", "count": 4, "lat": 28.5383, "lng": -81.3792}, {"city": "Brooklyn, New York", "count": 4, "lat": 40.6782, "lng": -73.9442}, {"city": "Smithfield, Rhode Island", "count": 2, "lat": 41.9001, "lng": -71.5495}, {"city": "White Plains, New York", "count": 2, "lat": 41.034, "lng": -73.7629}, {"city": "Chicago, Illinois", "count": 2, "lat": 41.8781, "lng": -87.6298}, {"city": "Charlottesville, Virginia", "count": 2, "lat": 38.0293, "lng": -78.4767}, {"city": "Locust Valley, New York", "count": 1, "lat": 40.8726, "lng": -73.5993}, {"city": "Olathe, Kansas", "count": 1, "lat": 38.8814, "lng": -94.8191}, {"city": "Dallas, Texas", "count": 1, "lat": 32.7767, "lng": -96.797}, {"city": "Albany, New York", "count": 1, "lat": 42.6526, "lng": -73.7562}, {"city": "Cincinnati, Ohio", "count": 1, "lat": 39.1031, "lng": -84.512}, {"city": "Denver, Colorado", "count": 1, "lat": 39.7392, "lng": -104.9903}, {"city": "San Diego, California", "count": 1, "lat": 32.7157, "lng": -117.1611}, {"city": "Boston, Massachusetts", "count": 1, "lat": 42.3601, "lng": -71.0589}, {"city": "Seattle, Washington", "count": 1, "lat": 47.6062, "lng": -122.3321}, {"city": "Louisville, Kentucky", "count": 1, "lat": 38.2527, "lng": -85.7585}, {"city": "Washington, District of Columbia", "count": 1, "lat": 38.9072, "lng": -77.0369}, {"city": "Raleigh, North Carolina", "count": 1, "lat": 35.7796, "lng": -78.6382}, {"city": "Hoboken, New Jersey", "count": 1, "lat": 40.744, "lng": -74.0324}];
+
+// ── Mobile menu ──
+const toggle  = document.querySelector('.nav-toggle');
+const navList = document.getElementById('primary-nav');
+if (toggle && navList) {
+    toggle.addEventListener('click', () => {
+        const open = navList.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open);
+    });
+}
+const mq = window.matchMedia('(max-width: 860px)');
+document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+        const item = link.parentElement;
+        const dd   = item && item.querySelector('.dropdown');
+        if (!dd) return;
+        if (mq.matches) {
+            e.preventDefault();
+            const isOpen = item.classList.toggle('open');
+            link.setAttribute('aria-expanded', isOpen);
+            item.parentElement.querySelectorAll('.nav-item').forEach(other => {
+                if (other !== item) {
+                    other.classList.remove('open');
+                    const l = other.querySelector('.nav-link');
+                    if (l) l.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    });
+});
+mq.addEventListener('change', e => {
+    if (!e.matches) {
+        navList && navList.classList.remove('open');
+        toggle  && toggle.setAttribute('aria-expanded', 'false');
+        document.querySelectorAll('.nav-item.open').forEach(i => i.classList.remove('open'));
+    }
+});
+
+// ── D3 Density map ──
+(function buildMap() {
+    const NS      = 'http://www.w3.org/2000/svg';
+    const mapWrap = document.getElementById('map-svg-container');
+    const tooltip = document.getElementById('map-tooltip');
+    const ttCity  = tooltip.querySelector('.tt-city');
+    const ttCount = tooltip.querySelector('.tt-count');
+    const locStat = document.getElementById('location-status');
+
+    // Compute dimensions from container width
+    const W = mapWrap.offsetWidth || 960;
+    const H = Math.round(W * 0.58);
+
+    // Create SVG
+    const svgEl = document.createElementNS(NS, 'svg');
+    svgEl.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svgEl.setAttribute('width', '100%');
+    svgEl.style.background = 'var(--surface)';
+    mapWrap.appendChild(svgEl);
+
+    const statesG = document.createElementNS(NS, 'g');
+    const pinsG   = document.createElementNS(NS, 'g');
+    svgEl.appendChild(statesG);
+    svgEl.appendChild(pinsG);
+
+    // Albers USA projection (pure JS, no D3 needed)
+    // Albers Equal-Area Conic projection for a single point.
+    // Returns raw projected {x, y} in projection units (y increases upward in math space).
+    function albersRaw(lngDeg, latDeg, lam0Deg, phi0Deg, phi1Deg, phi2Deg) {
+        const D    = Math.PI / 180;
+        const lam  = lngDeg * D, phi = latDeg * D;
+        const lam0 = lam0Deg * D, phi0 = phi0Deg * D;
+        const phi1 = phi1Deg * D, phi2 = phi2Deg * D;
+        const n  = (Math.sin(phi1) + Math.sin(phi2)) / 2;
+        const C  = Math.cos(phi1) * Math.cos(phi1) + 2 * n * Math.sin(phi1);
+        const r0 = Math.sqrt(C - 2 * n * Math.sin(phi0)) / n;
+        const r  = Math.sqrt(C - 2 * n * Math.sin(phi))  / n;
+        const th = n * (lam - lam0);
+        return { x: r * Math.sin(th), y: r0 - r * Math.cos(th) };
+    }
+
+    // Full Albers USA composite projection -> SVG pixel coords.
+    // SVG y-axis increases downward, so we NEGATE raw y before scaling.
+    function albersUsa(lngDeg, latDeg) {
+        const scale = W * 1.25;
+        const tx    = W * 0.50;
+        const ty    = H * 0.49;
+
+        // Alaska inset (bottom-left corner) — check BEFORE lower-48
+        if (latDeg > 49 && lngDeg < -129) {
+            const a  = albersRaw(lngDeg, latDeg, -160, 60, 55, 65);
+            return { x: a.x * (W * 0.28) + W * 0.10, y: -a.y * (W * 0.28) + H * 0.80 };
+        }
+        // Hawaii inset (bottom-centre)
+        if (latDeg < 28 && lngDeg < -140) {
+            const h  = albersRaw(lngDeg, latDeg, -157, 20.5, 8, 18);
+            return { x: h.x * (W * 0.18) + W * 0.37, y: -h.y * (W * 0.18) + H * 0.88 };
+        }
+        // Lower 48: standard parallels 29.5/45.5, centre -96/37.5
+        const p = albersRaw(lngDeg, latDeg, -96, 37.5, 29.5, 45.5);
+        return { x: p.x * scale + tx, y: -p.y * scale + ty };
+    }
+
+    function pinColor(c) { return c >= 16 ? '#c0392b' : c >= 5 ? '#e67e22' : '#5b9ec9'; }
+    function pinRadius(c) { return c >= 100 ? 22 : c >= 16 ? 15 : c >= 5 ? 10 : 6; }
+
+    function mkCircle(attrs) {
+        const el = document.createElementNS(NS, 'circle');
+        Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+        return el;
+    }
+    function mkText(attrs, text) {
+        const el = document.createElementNS(NS, 'text');
+        Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+        el.textContent = text;
+        return el;
+    }
+
+    function showTip(e, d) {
+        ttCity.textContent  = d.city;
+        ttCount.textContent = d.count + ' member' + (d.count !== 1 ? 's' : '');
+        tooltip.style.display = 'block';
+        moveTip(e);
+    }
+    function moveTip(e) {
+        tooltip.style.left = (e.clientX + 14) + 'px';
+        tooltip.style.top  = (e.clientY - 38) + 'px';
+    }
+    function hideTip() { tooltip.style.display = 'none'; }
+
+    function drawPins() {
+        MAP_DATA.forEach(d => {
+            const { x, y } = albersUsa(d.lng, d.lat);
+            if (x < 0 || x > W || y < 0 || y > H) return; // off-canvas guard
+            const r     = pinRadius(d.count);
+            const color = pinColor(d.count);
+
+            // Pulse ring for prominent cities
+            if (d.count >= 5) {
+                pinsG.appendChild(mkCircle({
+                    cx: x, cy: y, r: r + 6,
+                    fill: 'none', stroke: color, 'stroke-width': '1.5', opacity: '0.3'
+                }));
+            }
+
+            const circle = mkCircle({
+                cx: x, cy: y, r: r, fill: color,
+                stroke: 'var(--surface)', 'stroke-width': '1.5', opacity: '0.9',
+                tabindex: '0', role: 'button',
+                'aria-label': d.city + ': ' + d.count + ' members'
+            });
+            circle.style.cursor = 'pointer';
+
+            circle.addEventListener('mouseenter', e => showTip(e, d));
+            circle.addEventListener('mousemove',  moveTip);
+            circle.addEventListener('mouseleave', hideTip);
+            circle.addEventListener('click', () => {
+                const cityName = d.city.split(',')[0].trim();
+                window.location.href = 'find-members2.html?q=' + encodeURIComponent(cityName);
+            });
+            circle.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const cityName = d.city.split(',')[0].trim();
+                    window.location.href = 'find-members2.html?q=' + encodeURIComponent(cityName);
+                }
+            });
+            pinsG.appendChild(circle);
+
+            if (d.count >= 5) {
+                pinsG.appendChild(mkText({
+                    x, y: y + 0.5,
+                    'text-anchor': 'middle', 'dominant-baseline': 'middle',
+                    fill: '#fff', 'font-size': r > 13 ? '11' : '8',
+                    'font-weight': '700',
+                    'font-family': 'Helvetica Neue, Arial, sans-serif',
+                    'pointer-events': 'none'
+                }, String(d.count)));
+            }
+        });
+    }
+
+    // Haversine distance (km)
+    function haversine(lat1, lng1, lat2, lng2) {
+        const R = 6371, D = Math.PI / 180;
+        const dLat = (lat2 - lat1) * D, dLng = (lng2 - lng1) * D;
+        const a = Math.sin(dLat/2)**2 +
+                  Math.cos(lat1*D) * Math.cos(lat2*D) * Math.sin(dLng/2)**2;
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    // Attempt to load real state outlines via TopoJSON; fall back gracefully
+    function drawStates(usAtlas) {
+        try {
+            // topojson and d3-geo are loaded via script tags below
+            const features = topojson.feature(usAtlas, usAtlas.objects.states).features;
+            features.forEach(f => {
+                const coords = [];
+                const geom   = f.geometry;
+                const polys  = geom.type === 'MultiPolygon' ? geom.coordinates : [geom.coordinates];
+                polys.forEach(poly => {
+                    poly.forEach(ring => {
+                        let d = '';
+                        ring.forEach((pt, i) => {
+                            const { x, y } = albersUsa(pt[0], pt[1]);
+                            d += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
+                        });
+                        d += 'Z';
+                        const path = document.createElementNS(NS, 'path');
+                        path.setAttribute('d', d);
+                        path.setAttribute('fill', 'var(--bg)');
+                        path.setAttribute('stroke', 'var(--line)');
+                        path.setAttribute('stroke-width', '0.5');
+                        statesG.appendChild(path);
+                    });
+                });
+            });
+        } catch(e) {
+            // silently fall back — pins still show
+        }
+    }
+
+    // Load TopoJSON data for state outlines
+    fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
+        .then(r => r.json())
+        .then(us => { drawStates(us); drawPins(); })
+        .catch(() => drawPins());
+
+    // Geolocation
+    if (navigator.geolocation) {
+        locStat.textContent = 'Locating you…';
+        navigator.geolocation.getCurrentPosition(pos => {
+            const { latitude: ulat, longitude: ulng } = pos.coords;
+            const { x, y } = albersUsa(ulng, ulat);
+
+            // You-are-here dot
+            [{ r: 13, o: '0.3' }, { r: 7, o: '0.9' }].forEach(({ r, o }) => {
+                pinsG.appendChild(mkCircle({
+                    cx: x, cy: y, r,
+                    fill: r > 10 ? 'none' : '#2ecc71',
+                    stroke: '#2ecc71', 'stroke-width': '1.5', opacity: o
+                }));
+            });
+
+            // Find nearest chapter
+            const nearest = MAP_DATA.reduce((best, d) => {
+                const dist = haversine(ulat, ulng, d.lat, d.lng);
+                return dist < best.dist ? { d, dist } : best;
+            }, { d: null, dist: Infinity });
+
+            if (nearest.d) {
+                const km = Math.round(nearest.dist);
+                locStat.innerHTML =
+                    '<span style="color:#2ecc71;">&#9679;</span> Nearest chapter: <strong>' +
+                    nearest.d.city.split(',')[0] + '</strong> (~' + km + ' km)';
+            }
+        }, () => {
+            locStat.textContent = 'Click a pin to search that city';
+        }, { timeout: 6000 });
+    }
+})();
+</script>
+</body>
+</html>

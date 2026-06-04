@@ -65,21 +65,22 @@
         .search-hero h1 { font-family: 'Inter', system-ui, sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; letter-spacing: -0.8px; color: #fff; margin: 0 0 12px; position: relative; }
         .search-hero p { color: rgba(255,255,255,0.72); font-size: clamp(15px, 2vw, 17px); max-width: 550px; margin: 0 auto 35px; position: relative; }
         .search-container { max-width: 680px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
-        .search-box { display: flex; background: var(--surface); border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.25); overflow: hidden; }
+        .search-box { display: flex; background: var(--white); border-radius: 10px; box-shadow: 0 12px 48px rgba(0,0,0,0.3); overflow: hidden; }
         .search-input-wrap { flex: 1; position: relative; display: flex; align-items: center; }
-        .search-icon { position: absolute; left: 20px; color: #95a5a6; font-size: 20px; pointer-events: none; }
-        .search-input { width: 100%; padding: 20px 20px 20px 52px; border: none; font-size: 16px; outline: none; background: transparent; color: #fff; font-family: 'Inter', system-ui, sans-serif; }
-        .search-input::placeholder { color: rgba(255,255,255,0.6); }
-        .search-btn { background-color: var(--green-light); color: white; border: none; padding: 0 32px; font-weight: 700; font-size: 15px; cursor: pointer; transition: background-color 0.3s; white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; }
-        .search-btn:hover { background-color: var(--green-mid); }
+        .search-icon { position: absolute; left: 20px; color: var(--green-light); font-size: 18px; pointer-events: none; }
+        .search-input { width: 100%; padding: 20px 20px 20px 52px; border: none; font-size: 16px; outline: none; background: transparent; color: var(--green-deep); font-family: 'Inter', system-ui, sans-serif; }
+        .search-input::placeholder { color: var(--muted); }
+        .search-btn { background-color: var(--green-mid); color: white; border: none; padding: 0 36px; font-weight: 700; font-size: 15px; cursor: pointer; transition: background-color 0.2s; white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; letter-spacing: 0.01em; }
+        .search-btn:hover { background-color: var(--green-deep); }
 
-        .suggestions { position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 20; display: none; max-height: 320px; overflow-y: auto; }
+        .suggestions { position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 20; display: none; max-height: 320px; overflow-y: auto; border: 1px solid var(--line); border-top: none; }
         .suggestions.active { display: block; }
-        .suggestion-item { padding: 14px 24px; cursor: pointer; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #f0f2f4; }
-        .suggestion-item:hover { background: #f7f9fb; }
+        .suggestion-item { padding: 13px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--text); }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover { background: var(--cream); color: var(--green-deep); }
         .suggestion-item .s-sub { margin-left: auto; color: var(--muted); font-size: 13px; }
 
-        .results-area { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .results-area { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
         .status-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 30px 0 10px; }
         .status-bar h2 { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; letter-spacing: -0.3px; color: var(--green-deep); margin: 0; }
         .status-count { font-size: 14px; color: var(--muted); background: var(--white); padding: 6px 14px; border-radius: 20px; border: 1px solid var(--line); }
@@ -215,34 +216,38 @@
 </div>
 
 <section class="search-hero">
-    <h1>Find Members Near Me</h1>
-    <p>Search by city <em>or member name</em> to find alumni and discover which chapter they belong to.</p>
-    <div class="search-container">
-        <div class="search-box">
-            <div class="search-input-wrap">
-                <span class="search-icon">📍</span>
-                <input type="text" id="locationInput" class="search-input"
-                       placeholder="City (e.g. New York) or name (e.g. Harrison Adams)…" autocomplete="off">
-                <div class="suggestions" id="suggestions"></div>
+    <div style="position:relative;z-index:1;">
+        <div style="display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--green-light);background:rgba(82,160,122,0.15);border:1px solid rgba(82,160,122,0.3);padding:4px 14px;border-radius:20px;margin-bottom:16px;">Connect</div>
+        <h1>Find Alumni Near You</h1>
+        <p>Search by city or member name to find alumni and discover which chapter they belong to.</p>
+        <div class="search-container">
+            <div class="search-box">
+                <div class="search-input-wrap">
+                    <span class="search-icon">📍</span>
+                    <input type="text" id="locationInput" class="search-input"
+                           placeholder="City (e.g. New York) or name (e.g. Harrison Adams)…" autocomplete="off">
+                    <div class="suggestions" id="suggestions"></div>
+                </div>
+                <button class="search-btn" id="searchBtn">Search</button>
             </div>
-            <button class="search-btn" id="searchBtn">Search</button>
         </div>
     </div>
 </section>
 
-<div class="results-area">
-    <div class="empty-state" id="emptyState">
-        <div class="icon">🎾</div>
-        <h3>Start Your Search</h3>
-        <p>Enter a city above to see active alumni members in that area.</p>
+<div class="results-area" style="padding-bottom:72px;">
+    <div class="empty-state" id="emptyState" style="padding:72px 20px;">
+        <div style="font-size:52px;margin-bottom:16px;opacity:0.25;">🎾</div>
+        <h3 style="font-size:20px;font-weight:700;color:var(--green-deep);margin:0 0 10px;letter-spacing:-0.3px;">Start Your Search</h3>
+        <p style="color:var(--muted);font-size:15px;max-width:400px;margin:0 auto;">Enter a city or member name above to find alumni in that area.</p>
     </div>
-    <div class="loading" id="loadingState" style="display:none;">
+    <div class="loading" id="loadingState" style="display:none;padding:72px 20px;">
         <div class="spinner"></div>
-        <p>Searching for alumni near you…</p>
+        <p style="color:var(--muted);">Searching for alumni near you…</p>
     </div>
-    <div class="no-results" id="noResults" style="display:none;">
-        <h3>No Results Found</h3>
-        <p>We couldn't find any alumni near that location.<br>Try a different city or check the spelling.</p>
+    <div class="no-results" id="noResults" style="display:none;padding:72px 20px;">
+        <div style="font-size:52px;margin-bottom:16px;opacity:0.2;">🔍</div>
+        <h3 style="font-size:20px;font-weight:700;color:var(--green-deep);margin:0 0 10px;">No Results Found</h3>
+        <p style="color:var(--muted);">We couldn't find any alumni near that location.<br>Try a different city or check the spelling.</p>
     </div>
     <div class="status-bar" id="statusBar" style="display:none;">
         <h2 id="resultHeading"></h2>

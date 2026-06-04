@@ -1,402 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Us — Collegiate Tennis Alumni Network</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Network — Collegiate Tennis Alumni Network</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { box-sizing: border-box; }
-
-        :root {
-            --navy:       #1e2d3d;
-            --navy-dark:  #131e29;
-            --orange:     #c8913a;
-            --orange-dark:#a87530;
-            --green:      #2e7d52;
-            --green-bg:   #256642;
-            --text:       #1e2d3d;
-            --muted:      #6b7a8a;
-            --bg:         #ede9e3;
-            --line:       #ddd8d0;
-            --surface:    #f9f7f4;
-            --header-bg:  #f9f7f4;
-        }
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --navy:       #8aaccc;
-                --navy-dark:  #0d151e;
-                --orange:     #d4a055;
-                --orange-dark:#c8913a;
-                --green:      #4aba7a;
-                --green-bg:   #1e6640;
-                --text:       #e0dbd4;
-                --muted:      #8a9aaa;
-                --bg:         #0f1822;
-                --line:       #1e2e3e;
-                --surface:    #162030;
-                --header-bg:  #0d1520;
-            }
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8e030'/%3E%3Cpath d='M4,20 C10,6 22,6 28,20' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 16 16, auto;
-        }
-
-        :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
-        :focus:not(:focus-visible) { outline: none; }
-
-        /* ── Header ── */
-        .main-header {
-            background-color: var(--header-bg);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-            position: sticky; top: 0; z-index: 1000;
-        }
-        .header-wrap {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 18px 20px; max-width: 1200px; margin: 0 auto;
-        }
-        .logo-placeholder {
-            font-family: Georgia, serif; font-size: 22px; font-weight: bold;
-            color: var(--navy); text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .logo-placeholder span { color: var(--orange); }
-
-        .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 10px; }
-        .nav-toggle span { display: block; width: 26px; height: 3px; margin: 5px 0; background: var(--navy); transition: all 0.3s; }
-        .nav-list { display: flex; margin: 0; padding: 0; list-style: none; }
-        .nav-item { position: relative; margin-left: 25px; }
-        .nav-link {
-            display: inline-block; color: var(--text); text-decoration: none;
-            font-weight: 600; font-size: 15px; padding: 10px 0; transition: color 0.2s; cursor: pointer;
-        }
-        .nav-link:hover { color: var(--navy); }
-        .dropdown {
-            visibility: hidden; opacity: 0; position: absolute; top: 100%; left: 0;
-            background: var(--surface); min-width: 220px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.14); padding: 8px 0; margin: 0;
-            list-style: none; border-radius: 4px; border-top: 3px solid var(--orange);
-            transform: translateY(10px);
-            transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
-        }
-        .dropdown a {
-            display: block; padding: 11px 20px; color: var(--text); text-decoration: none;
-            font-size: 14px; font-weight: 500; transition: background 0.15s, color 0.15s;
-        }
-        .dropdown a:hover { background: var(--bg); color: var(--navy); }
-        .nav-item:hover .dropdown,
-        .nav-item:focus-within .dropdown,
-        .nav-item.open .dropdown { visibility: visible; opacity: 1; transform: translateY(0); }
-
-        /* ── Breadcrumb ── */
-        .breadcrumb { font-size: 14px; color: var(--muted); padding: 16px 20px; max-width: 1200px; margin: 0 auto; }
-        .breadcrumb a { color: var(--navy); text-decoration: none; }
-        .breadcrumb a:hover { text-decoration: underline; }
-
-        /* ── Join Hero ── */
-        .join-hero {
-            background:
-                linear-gradient(rgba(11,60,93,0.88), rgba(26,37,47,0.93)),
-                #1e2d3d url('https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&q=80&w=1200') center/cover no-repeat;
-            color: #fff; padding: 100px 0 80px; text-align: center;
-        }
-        .join-hero h1 {
-            font-family: Georgia, serif; font-size: clamp(30px, 5vw, 48px);
-            margin: 0 0 20px; font-weight: normal; letter-spacing: -0.5px;
-        }
-        .join-hero p {
-            font-size: clamp(16px, 2.5vw, 19px); max-width: 640px;
-            margin: 0 auto 40px; color: #d8e8f0; line-height: 1.75;
-        }
-
-        /* ── Button ── */
-        .btn {
-            display: inline-block; padding: 16px 44px; border-radius: 6px;
-            font-weight: 700; text-decoration: none; font-size: 16px;
-            transition: all 0.25s; border: 2px solid transparent;
-        }
-        .btn-primary { background-color: var(--orange); color: #fff; border-color: var(--orange); }
-        .btn-primary:hover { background-color: var(--orange-dark); border-color: var(--orange-dark); transform: translateY(-2px); }
-
-        /* ── Benefits strip ── */
-        .benefits {
-            background: var(--surface); border-bottom: 1px solid var(--line); padding: 70px 0;
-        }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-title {
-            font-family: Georgia, serif; font-size: clamp(24px, 4vw, 30px);
-            color: var(--navy); margin: 0 0 12px; padding-left: 16px;
-            border-left: 4px solid var(--orange);
-        }
-        .section-subtitle { font-size: 16px; color: var(--muted); margin: 0 0 48px; }
-
-        .benefits-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px;
-        }
-        .benefit-card {
-            background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
-            padding: 32px 28px; text-align: center;
-        }
-        .benefit-icon { font-size: 36px; margin-bottom: 16px; }
-        .benefit-card h3 { margin: 0 0 10px; color: var(--navy); font-size: 17px; }
-        .benefit-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
-
-        /* ── Who can join ── */
-        .eligibility { background: var(--bg); padding: 70px 0; border-bottom: 1px solid var(--line); }
-        .eligibility-text p { margin: 0 0 16px; line-height: 1.75; font-size: 16px; }
-        .eligibility-list { list-style: none; padding: 0; margin: 0 0 16px; }
-        .eligibility-list li {
-            padding: 10px 0 10px 28px; border-bottom: 1px solid var(--line);
-            font-size: 15px; position: relative;
-        }
-        .eligibility-list li::before {
-            content: '✓'; position: absolute; left: 0;
-            color: var(--green); font-weight: 700;
-        }
-        .eligibility-list li:last-child { border-bottom: none; }
-
-/* ── Layout helpers ── */
-        .row { display: flex; flex-wrap: wrap; gap: 30px; }
-        .col { flex: 1 1 0; min-width: 0; }
-        .col-60 { flex: 1 1 60%; }
-
-        /* ── Footer ── */
-        footer { background: var(--navy-dark); color: #c5cfd6; padding: 60px 0 28px; font-size: 14px; }
-        footer h4 { color: #fff; margin: 0 0 18px; font-size: 16px; font-family: Georgia, serif; }
-        footer ul { list-style: none; padding: 0; margin: 0; }
-        footer li { margin-bottom: 10px; }
-        footer a { color: #c5cfd6; text-decoration: none; transition: color 0.2s; }
-        footer a:hover { color: #fff; }
-        .footer-muted { color: #8fa5b2; }
-        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e2e3a; text-align: center; font-size: 12px; color: #6b8494; }
-
-        /* ── Responsive ── */
-        @media (max-width: 860px) {
-            .nav-toggle { display: block; }
-            .nav-list {
-                position: absolute; top: 100%; left: 0; right: 0;
-                flex-direction: column; background: var(--header-bg);
-                box-shadow: 0 8px 18px rgba(0,0,0,0.12); padding: 10px 0; display: none;
-            }
-            .nav-list.open { display: flex; }
-            .nav-item { margin: 0; }
-            .nav-link { display: block; padding: 14px 20px; }
-            .dropdown {
-                position: static; visibility: visible; opacity: 1; transform: none;
-                box-shadow: none; border-top: 0; min-width: 0; padding: 0;
-                max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
-                background: var(--bg);
-            }
-            .nav-item.open .dropdown { max-height: 400px; }
-            .dropdown a { padding-left: 36px; }
-        }
+        *,*::before,*::after{box-sizing:border-box;}:root{--green-deep:#1c3b2d;--green-mid:#2d6a4f;--green-light:#52a07a;--cream:#f7f5f0;--white:#fff;--text:#2d3748;--muted:#718096;--line:#e2e8e0;--surface:#fff;}html{scroll-behavior:smooth;}body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--text);line-height:1.6;font-size:15px;}:focus-visible{outline:2px solid var(--green-mid);outline-offset:3px;border-radius:3px;}:focus:not(:focus-visible){outline:none;}.container{max-width:1140px;margin:0 auto;padding:0 24px;}.row{display:flex;flex-wrap:wrap;gap:28px;}.col{flex:1 1 0;min-width:0;}.col-60{flex:1 1 58%;}.col-40{flex:1 1 36%;}.main-header{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:1000;box-shadow:0 2px 16px rgba(0,0,0,0.05);}.header-wrap{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;max-width:1140px;margin:0 auto;}.logo{font-size:16px;font-weight:700;color:var(--green-deep);text-decoration:none;letter-spacing:0.02em;}.logo span{color:var(--green-light);font-weight:400;}.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;}.nav-toggle span{display:block;width:22px;height:2px;margin:5px 0;background:var(--green-deep);}.nav-list{display:flex;margin:0;padding:0;list-style:none;align-items:center;}.nav-item{position:relative;margin-left:24px;}.nav-link{display:inline-block;color:var(--muted);text-decoration:none;font-weight:500;font-size:14px;padding:8px 0;transition:color 0.2s;cursor:pointer;}.nav-link:hover{color:var(--green-deep);}.dropdown{visibility:hidden;opacity:0;position:absolute;top:calc(100% + 8px);left:0;background:var(--white);min-width:200px;box-shadow:0 4px 24px rgba(0,0,0,0.12);padding:6px 0;margin:0;list-style:none;border-radius:8px;border-top:2px solid var(--green-mid);transform:translateY(6px);transition:opacity 0.18s ease,transform 0.18s ease,visibility 0.18s;}.dropdown a{display:block;padding:10px 18px;color:var(--text);text-decoration:none;font-size:14px;transition:background 0.12s;}.dropdown a:hover{background:var(--cream);color:var(--green-deep);}.nav-item:hover .dropdown,.nav-item:focus-within .dropdown,.nav-item.open .dropdown{visibility:visible;opacity:1;transform:translateY(0);}.nav-cta{display:inline-block;padding:9px 20px;background:var(--green-light);color:#fff;text-decoration:none;border-radius:5px;font-size:14px;font-weight:600;transition:background 0.2s,transform 0.2s;}.nav-cta:hover{background:var(--green-mid);transform:translateY(-1px);}.breadcrumb-bar{background:var(--white);border-bottom:1px solid var(--line);}.breadcrumb{font-size:13px;color:var(--muted);padding:12px 0;}.breadcrumb a{color:var(--green-mid);text-decoration:none;}.page-hero{background:linear-gradient(135deg,var(--green-deep) 0%,#2a5e42 100%);color:#fff;padding:80px 0 68px;position:relative;overflow:hidden;}.page-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(82,160,122,0.12) 0%,transparent 65%);pointer-events:none;}.page-hero .container{position:relative;}.page-hero-eyebrow{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--green-light);background:rgba(82,160,122,0.15);border:1px solid rgba(82,160,122,0.3);padding:4px 12px;border-radius:20px;margin-bottom:16px;}.page-hero h1{font-size:clamp(28px,4vw,44px);font-weight:700;margin:0 0 14px;letter-spacing:-0.8px;line-height:1.1;}.page-hero p{font-size:17px;max-width:520px;color:rgba(255,255,255,0.72);margin:0;line-height:1.6;}.section-block{padding:88px 0;background:var(--surface);border-bottom:1px solid var(--line);}.section-block.alt{background:var(--cream);}.eyebrow{display:block;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-mid);margin:0 0 12px;}.section-title{font-size:clamp(26px,3.5vw,36px);font-weight:700;color:var(--green-deep);margin:0 0 14px;line-height:1.15;letter-spacing:-0.5px;}.section-sub{font-size:16px;color:var(--muted);margin:0 0 40px;line-height:1.6;}.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}.feature-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;transition:box-shadow 0.2s,transform 0.2s;}.feature-card:hover{box-shadow:0 12px 36px rgba(0,0,0,0.09);transform:translateY(-3px);}.feature-icon{width:44px;height:44px;background:rgba(82,160,122,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px;}.feature-card h3{margin:0 0 8px;color:var(--green-deep);font-size:16px;font-weight:700;}.feature-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.65;}.stat-card{background:var(--green-deep);color:#fff;border-radius:12px;padding:36px 28px;text-align:center;}.stat-card-num{font-size:52px;font-weight:800;color:#fff;line-height:1;}.stat-card-lbl{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;font-weight:500;margin-top:6px;}.stat-divider{border:0;border-top:1px solid rgba(255,255,255,0.1);margin:20px 0;}.check-list{list-style:none;padding:0;margin:0;}.check-list li{padding:10px 0 10px 28px;border-bottom:1px solid var(--line);font-size:14px;position:relative;color:var(--text);}.check-list li::before{content:'✓';position:absolute;left:0;color:var(--green-mid);font-weight:700;}.check-list li:last-child{border-bottom:none;}.cta-section{background:var(--green-deep);color:#fff;text-align:center;padding:96px 0;position:relative;overflow:hidden;}.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(82,160,122,0.14) 0%,transparent 70%);pointer-events:none;}.cta-section .container{position:relative;}.cta-section .eyebrow{color:rgba(255,255,255,0.45);}.cta-section .section-title{color:#fff;}.cta-section p{max-width:480px;margin:12px auto 36px;color:rgba(255,255,255,0.68);font-size:17px;line-height:1.65;}.cta-buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;}.btn{display:inline-block;padding:14px 32px;border-radius:5px;font-weight:600;text-decoration:none;font-size:15px;transition:all 0.2s;border:1.5px solid transparent;}.btn-white{background:#fff;color:var(--green-deep);border-color:#fff;}.btn-white:hover{background:var(--cream);transform:translateY(-1px);}.btn-outline-white{border-color:rgba(255,255,255,0.4);color:#fff;background:rgba(255,255,255,0.06);}.btn-outline-white:hover{background:rgba(255,255,255,0.13);}.btn-green{background:var(--green-light);color:#fff;border-color:var(--green-light);}.btn-green:hover{background:var(--green-mid);}footer{background:#0d1a10;color:rgba(255,255,255,0.45);padding:60px 0 28px;font-size:14px;}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;}.footer-brand-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;}.footer-brand-name span{color:var(--green-light);font-weight:400;}.footer-brand p{margin:0;line-height:1.7;font-size:13px;}footer h4{color:rgba(255,255,255,0.7);margin:0 0 16px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;}footer ul{list-style:none;padding:0;margin:0;}footer li{margin-bottom:10px;}footer a{color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.2s;}footer a:hover{color:#fff;}.footer-bottom{margin-top:48px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.07);font-size:12px;color:rgba(255,255,255,0.22);text-align:center;}@media(max-width:860px){.nav-toggle{display:block;}.nav-list{position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--white);border-bottom:1px solid var(--line);padding:8px 0;display:none;}.nav-list.open{display:flex;}.nav-item{margin:0;}.nav-link{display:block;padding:12px 20px;}.nav-cta{margin:8px 20px 12px;display:block;text-align:center;}.dropdown{position:static;visibility:visible;opacity:1;transform:none;box-shadow:none;border-top:0;min-width:0;padding:0;max-height:0;overflow:hidden;transition:max-height 0.3s ease;background:var(--cream);border-radius:0;}.nav-item.open .dropdown{max-height:400px;}.dropdown a{padding-left:34px;}.col-60,.col-40,.col{flex:1 1 100%;}.section-block{padding:60px 0;}.footer-grid{grid-template-columns:1fr;}}
     </style>
 </head>
 <body>
+<header class="main-header"><div class="header-wrap">
+    <a href="index.html" class="logo">NCAA Tennis <span>Alumni</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span></button>
+    <nav aria-label="Primary"><ul class="nav-list" id="primary-nav">
+        <li class="nav-item"><a href="#" class="nav-link">About ▾</a><ul class="dropdown"><li><a href="our-mission.html">Our Mission</a></li><li><a href="network-framework.html">Network Framework</a></li></ul></li>
+        <li class="nav-item"><a href="#" class="nav-link">Community ▾</a><ul class="dropdown"><li><a href="who-we-are.html">Who We Are</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="chapters.html">Chapters</a></li></ul></li>
+        <li class="nav-item"><a href="#" class="nav-link">Connect ▾</a><ul class="dropdown"><li><a href="find-members2.html">Find Alumni Near You</a></li><li><a href="reconnect.html">Reconnect with Alumni</a></li><li><a href="join.html">Join the Network</a></li></ul></li>
+        <li class="nav-item"><a href="#" class="nav-link">News ▾</a><ul class="dropdown"><li><a href="reconnect.html">Member Spotlight</a></li><li><a href="newsflash.html">Newsflash</a></li></ul></li>
+        <li class="nav-item"><a href="#" class="nav-link">Give ▾</a><ul class="dropdown"><li><a href="donations.html">Donate</a></li><li><a href="how-funded.html">How We're Funded</a></li></ul></li>
+        <li class="nav-item"><a href="find-members2.html" class="nav-cta">Find Alumni</a></li>
+    </ul></nav>
+</div></header>
 
-<!-- ── Header ── -->
-<header class="main-header">
-    <div class="header-wrap">
-        <a href="index.html" class="logo-placeholder">NCAA <span>Tennis</span> Alumni</a>
-        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
-            <span></span><span></span><span></span>
-        </button>
-        <nav aria-label="Primary">
-            <ul class="nav-list" id="primary-nav">
-                <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">About Us ▾</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Our Mission</a></li>
-                        <li><a href="#">Network Framework</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Community ▾</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Who We Are</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                        <li><a href="#">Chapters</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Connect ▾</a>
-                    <ul class="dropdown">
-                        <li><a href="find-members2.html">Find Alumni Near You</a></li>
-                        <li><a href="join.html">Join Us</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Opportunities ▾</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Reconnect with Alumni</a></li>
-                        <li><a href="#">Newsflash</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Give ▾</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Donations</a></li>
-                        <li><a href="#">How We're Funded</a></li>
-                    </ul>
-                </li>
+<section class="page-hero"><div class="container">
+    <div class="page-hero-eyebrow">Connect</div>
+    <h1>Join the Network</h1>
+    <p>Whether you graduated last year or two decades ago, your court experience still matters.</p>
+</div></section>
+<div class="breadcrumb-bar"><div class="container"><div class="breadcrumb"><a href="index.html">Home</a> › Connect › <strong>Join the Network</strong></div></div></div>
+
+<section class="section-block"><div class="container">
+    <span class="eyebrow">What You Get</span>
+    <h2 class="section-title">Membership opens doors on and off the court</h2>
+    <p class="section-sub">Join hundreds of former collegiate tennis players building careers, friendships, and second serves — together.</p>
+    <div class="card-grid">
+        <div class="feature-card"><div class="feature-icon">🎾</div><h3>Hitting Partners</h3><p>Connect with fellow alumni in your city for casual games, drilling sessions, and local league play.</p></div>
+        <div class="feature-card"><div class="feature-icon">🤝</div><h3>Career Network</h3><p>Access a curated directory of 300+ professionals spanning finance, law, tech, media, and more.</p></div>
+        <div class="feature-card"><div class="feature-icon">📍</div><h3>Local Chapters</h3><p>Join a regional chapter and attend in-person meetups, networking nights, and alumni tournaments.</p></div>
+        <div class="feature-card"><div class="feature-icon">📣</div><h3>Newsflash &amp; Events</h3><p>Stay informed on member spotlights, career moves, and upcoming events across all chapters.</p></div>
+    </div>
+    <div style="margin-top:40px;text-align:center;"><a href="mailto:network@example.org?subject=Join the Network" class="btn btn-green">Apply to Join</a></div>
+</div></section>
+
+<section class="section-block alt"><div class="container">
+    <div class="row">
+        <div class="col-60">
+            <span class="eyebrow">Eligibility</span>
+            <h2 class="section-title">Who Can Join</h2>
+            <p class="section-sub">Membership is open to any former varsity collegiate tennis player, regardless of division or graduation year.</p>
+            <ul class="check-list">
+                <li>Competed on a varsity NCAA tennis team (Division I, II, or III)</li>
+                <li>Graduated or departed the program in good standing</li>
+                <li>Current student-athletes in their final year are welcome to apply early</li>
+                <li>International alumni who played at a US collegiate institution are eligible</li>
             </ul>
-        </nav>
-    </div>
-</header>
-
-<div class="breadcrumb">
-    <a href="index.html">Home</a> › Connect › <strong>Join Us</strong>
-</div>
-
-<!-- ── Join Hero ── -->
-<section class="join-hero">
-    <div class="container">
-        <h1>Become Part of the Network</h1>
-        <p>Whether you graduated last year or two decades ago, your court experience still matters. Join hundreds of former collegiate tennis players building careers, friendships, and second serves — together.</p>
-        <!--
-        ══════════════════════════════════════════════════════
-        PLACEHOLDER: Replace the href below with the real
-        membership application / sign-up URL before launch.
-        ══════════════════════════════════════════════════════
-        -->
-        <a href="YOUR_JOIN_URL_HERE" class="btn btn-primary">Join Now</a>
-    </div>
-</section>
-
-<!-- ── Benefits ── -->
-<section class="benefits">
-    <div class="container">
-        <h2 class="section-title">What You Get</h2>
-        <p class="section-subtitle">Membership opens doors on and off the court.</p>
-        <div class="benefits-grid">
-            <div class="benefit-card">
-                <div class="benefit-icon">🎾</div>
-                <h3>Hitting Partners</h3>
-                <p>Connect with fellow alumni in your city for casual games, drilling sessions, and local league play.</p>
-            </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">🤝</div>
-                <h3>Career Network</h3>
-                <p>Access a curated directory of 300+ professionals spanning finance, law, tech, media, and more.</p>
-            </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">📍</div>
-                <h3>Local Chapters</h3>
-                <p>Join a regional chapter and attend in-person meetups, networking nights, and alumni tournaments.</p>
-            </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">📣</div>
-                <h3>Newsflash &amp; Events</h3>
-                <p>Stay informed on member spotlights, career moves, and upcoming events across all chapters.</p>
+            <p style="margin-top:16px;font-size:14px;color:var(--muted);">Not sure if you qualify? <a href="mailto:network@example.org" style="color:var(--green-mid);font-weight:600;">Email us</a> and we'll be happy to help.</p>
+        </div>
+        <div class="col-40">
+            <div class="stat-card">
+                <div class="stat-card-num">306</div><div class="stat-card-lbl">Current members</div>
+                <hr class="stat-divider">
+                <div class="stat-card-num">25+</div><div class="stat-card-lbl">Cities represented</div>
+                <hr class="stat-divider">
+                <div class="stat-card-num">3</div><div class="stat-card-lbl">NCAA divisions</div>
             </div>
         </div>
     </div>
-</section>
+</div></section>
 
-<!-- ── Eligibility ── -->
-<section class="eligibility">
-    <div class="container">
-        <div style="display:flex;flex-wrap:wrap;gap:40px;">
-            <div style="flex:1 1 55%;min-width:0;" class="eligibility-text">
-                <h2 class="section-title">Who Can Join</h2>
-                <p class="section-subtitle" style="margin-bottom:24px;">Membership is open to any former varsity collegiate tennis player, regardless of division or graduation year.</p>
-                <ul class="eligibility-list">
-                    <li>Competed on a varsity NCAA tennis team (Division I, II, or III)</li>
-                    <li>Graduated or departed the program in good standing</li>
-                    <li>Current student-athletes in their final year are welcome to apply early</li>
-                    <li>International alumni who played at a US collegiate institution are eligible</li>
-                </ul>
-                <p style="font-size:14px;color:var(--muted);">Not sure if you qualify? <a href="mailto:network@example.org" style="color:var(--navy);">Email us</a> and we'll be happy to help.</p>
-            </div>
-            <div style="flex:1 1 35%;min-width:220px;">
-                <div style="background:var(--navy);color:#fff;border-radius:10px;padding:36px 28px;text-align:center;">
-                    <div style="font-size:44px;font-weight:800;color:var(--orange);line-height:1;">306</div>
-                    <div style="font-size:14px;color:#b8cdd9;margin-top:6px;">current members</div>
-                    <div style="margin:24px 0;border-top:1px solid rgba(255,255,255,0.12);"></div>
-                    <div style="font-size:44px;font-weight:800;color:var(--orange);line-height:1;">25+</div>
-                    <div style="font-size:14px;color:#b8cdd9;margin-top:6px;">cities represented</div>
-                    <div style="margin:24px 0;border-top:1px solid rgba(255,255,255,0.12);"></div>
-                    <div style="font-size:44px;font-weight:800;color:var(--orange);line-height:1;">3</div>
-                    <div style="font-size:14px;color:#b8cdd9;margin-top:6px;">NCAA divisions</div>
-                </div>
-            </div>
-        </div>
+<section class="cta-section"><div class="container">
+    <span class="eyebrow">Ready?</span>
+    <h2 class="section-title">Become Part of the Network</h2>
+    <p>Send us a note and we'll get you set up with your local chapter.</p>
+    <div class="cta-buttons"><a href="mailto:network@example.org?subject=Join the Network" class="btn btn-white">Apply to Join</a><a href="find-members2.html" class="btn btn-outline-white">Find Alumni Near You</a></div>
+</div></section>
+
+<footer><div class="container">
+    <div class="footer-grid">
+        <div class="footer-brand"><div class="footer-brand-name">NCAA Tennis <span>Alumni</span></div><p>A collective unifying former collegiate tennis players across all divisions, chapters, and generations.</p></div>
+        <div><h4>Explore</h4><ul><li><a href="who-we-are.html">Who We Are</a></li><li><a href="find-members2.html">Find Alumni Near Me</a></li><li><a href="chapters.html">Chapters</a></li><li><a href="newsflash.html">Latest Newsflash</a></li><li><a href="how-funded.html">Financial Transparency</a></li></ul></div>
+        <div><h4>Contact</h4><ul><li><a href="mailto:network@example.org">network@example.org</a></li><li><a href="mailto:support@example.org">support@example.org</a></li></ul></div>
     </div>
-</section>
-
-
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-60">
-                <h4>Collegiate Tennis Alumni Network</h4>
-                <p class="footer-muted">A professional and recreational collective unifying former collegiate tennis players across all divisions and chapters.</p>
-            </div>
-            <div class="col">
-                <h4>Explore</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Who We Are</a></li>
-                    <li><a href="find-members2.html">Find Alumni Near Me</a></li>
-                    <li><a href="#">Latest Newsflash</a></li>
-                    <li><a href="#">Financial Transparency</a></li>
-                </ul>
-            </div>
-            <div class="col">
-                <h4>Contact</h4>
-                <ul>
-                    <li><strong>Email:</strong> <a href="mailto:network@example.org">network@example.org</a></li>
-                    <li><strong>Support:</strong> <a href="mailto:support@example.org">support@example.org</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 NCAA Tennis Alumni Network. Not affiliated with the National Collegiate Athletic Association.</p>
-        </div>
-    </div>
-</footer>
-
-<script>
-// ── Mobile menu ──
-const toggle  = document.querySelector('.nav-toggle');
-const navList = document.getElementById('primary-nav');
-if (toggle && navList) {
-    toggle.addEventListener('click', () => {
-        const open = navList.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open);
-    });
-}
-const mq = window.matchMedia('(max-width: 860px)');
-document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
-    link.addEventListener('click', e => {
-        const item = link.parentElement;
-        const dd   = item && item.querySelector('.dropdown');
-        if (!dd) return;
-        if (mq.matches) {
-            e.preventDefault();
-            const isOpen = item.classList.toggle('open');
-            link.setAttribute('aria-expanded', isOpen);
-            item.parentElement.querySelectorAll('.nav-item').forEach(other => {
-                if (other !== item) {
-                    other.classList.remove('open');
-                    const l = other.querySelector('.nav-link');
-                    if (l) l.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-    });
-});
-mq.addEventListener('change', e => {
-    if (!e.matches) {
-        navList && navList.classList.remove('open');
-        toggle  && toggle.setAttribute('aria-expanded', 'false');
-        document.querySelectorAll('.nav-item.open').forEach(i => i.classList.remove('open'));
-    }
-});
-</script>
-</body>
-</html>
+    <div class="footer-bottom">&copy; 2026 NCAA Tennis Alumni Network. Not affiliated with the National Collegiate Athletic Association.</div>
+</div></footer>
+<script>const t=document.querySelector('.nav-toggle'),n=document.getElementById('primary-nav');if(t&&n){t.addEventListener('click',()=>{const o=n.classList.toggle('open');t.setAttribute('aria-expanded',o);});}const mq=window.matchMedia('(max-width:860px)');document.querySelectorAll('.nav-item>.nav-link').forEach(l=>{l.addEventListener('click',e=>{const i=l.parentElement,d=i&&i.querySelector('.dropdown');if(!d)return;if(mq.matches){e.preventDefault();const o=i.classList.toggle('open');l.setAttribute('aria-expanded',o);i.parentElement.querySelectorAll('.nav-item').forEach(x=>{if(x!==i){x.classList.remove('open');const k=x.querySelector('.nav-link');if(k)k.setAttribute('aria-expanded','false');}});}});});mq.addEventListener('change',e=>{if(!e.matches){n&&n.classList.remove('open');t&&t.setAttribute('aria-expanded','false');document.querySelectorAll('.nav-item.open').forEach(i=>i.classList.remove('open'));}});</script>
+</body></html>

@@ -4,77 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Members Near You — Collegiate Tennis Alumni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
         :root {
-            --navy:       #1e2d3d;
-            --navy-dark:  #131e29;
-            --orange:     #c8913a;
-            --orange-dark:#a87530;
-            --green:      #2e7d52;
-            --green-bg:   #256642;
-            --text:       #1e2d3d;
-            --muted:      #6b7a8a;
-            --bg:         #ede9e3;
-            --line:       #ddd8d0;
-            --surface:    #f9f7f4;
-            --header-bg:  #f9f7f4;
+            --navy:        #1c3b2d;
+            --navy-dark:   #111c16;
+            --orange:      #52a07a;
+            --orange-dark: #2d6a4f;
+            --green:       #52a07a;
+            --green-bg:    #2d6a4f;
+            --text:        #2d3748;
+            --muted:       #718096;
+            --bg:          #f7f5f0;
+            --line:        #e2e8e0;
+            --surface:     #ffffff;
+            --header-bg:   #ffffff;
+            --white:       #ffffff;
+            /* New system aliases */
+            --green-deep:  #1c3b2d;
+            --green-mid:   #2d6a4f;
+            --green-light: #52a07a;
+            --cream:       #f7f5f0;
         }
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --navy:       #8aaccc;
-                --navy-dark:  #0d151e;
-                --orange:     #d4a055;
-                --orange-dark:#c8913a;
-                --green:      #4aba7a;
-                --green-bg:   #1e6640;
-                --text:       #e0dbd4;
-                --muted:      #8a9aaa;
-                --bg:         #0f1822;
-                --line:       #1e2e3e;
-                --surface:    #162030;
-                --header-bg:  #0d1520;
-            }
-        }
-        body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8e030'/%3E%3Cpath d='M4,20 C10,6 22,6 28,20' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 16 16, auto; }
+        body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
-        .main-header { background-color: var(--header-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.07); position: sticky; top: 0; z-index: 1000; }
-        .header-wrap { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 16px 20px; }
-        .logo-placeholder { font-family: Georgia, serif; font-size: 22px; font-weight: bold; color: var(--navy); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
-        .logo-placeholder span { color: var(--orange); }
-        .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 10px; }
-        .nav-toggle span { display: block; width: 26px; height: 3px; margin: 5px 0; background: var(--navy); transition: all 0.3s; }
-        .nav-list { display: flex; margin: 0; padding: 0; list-style: none; }
-        .nav-item { position: relative; margin-left: 25px; }
-        .nav-link { display: inline-block; color: var(--text); text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 0; transition: color 0.2s; cursor: pointer; }
-        .nav-link:hover { color: var(--navy); }
+        .main-header { background: var(--white); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 16px rgba(0,0,0,0.05); }
+        .header-wrap { display: flex; align-items: center; justify-content: space-between; max-width: 1140px; margin: 0 auto; padding: 20px 24px; }
+        .logo-placeholder { font-size: 16px; font-weight: 700; color: var(--green-deep); text-decoration: none; letter-spacing: 0.02em; font-family: 'Inter', system-ui, sans-serif; }
+        .logo-placeholder span { color: var(--green-light); font-weight: 400; }
+        .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; }
+        .nav-toggle span { display: block; width: 22px; height: 2px; margin: 5px 0; background: var(--green-deep); transition: all 0.25s; }
+        .nav-list { display: flex; margin: 0; padding: 0; list-style: none; align-items: center; }
+        .nav-item { position: relative; margin-left: 24px; }
+        .nav-link { display: inline-block; color: var(--muted); text-decoration: none; font-weight: 500; font-size: 14px; padding: 8px 0; transition: color 0.2s; cursor: pointer; }
+        .nav-link:hover { color: var(--green-deep); }
+        .nav-cta { display: inline-block; padding: 9px 20px; background: var(--green-light); color: #fff; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: 600; transition: background 0.2s, transform 0.2s; }
+        .nav-cta:hover { background: var(--green-mid); transform: translateY(-1px); }
         .dropdown {
-            visibility: hidden; opacity: 0; position: absolute; top: 100%; left: 0;
-            background: var(--surface); min-width: 220px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.14); padding: 8px 0; margin: 0;
-            list-style: none; border-radius: 4px; border-top: 3px solid var(--orange);
-            transform: translateY(10px);
-            transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+            visibility: hidden; opacity: 0; position: absolute; top: calc(100% + 8px); left: 0;
+            background: var(--white); min-width: 200px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12); padding: 6px 0; margin: 0;
+            list-style: none; border-radius: 8px; border-top: 2px solid var(--green-mid);
+            transform: translateY(6px);
+            transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
         }
-        .dropdown a { display: block; padding: 11px 20px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.15s, color 0.15s; }
-        .dropdown a:hover { background: var(--bg); color: var(--navy); }
+        .dropdown a { display: block; padding: 10px 18px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 400; transition: background 0.12s; }
+        .dropdown a:hover { background: var(--cream); color: var(--green-deep); }
         .nav-item:hover .dropdown, .nav-item:focus-within .dropdown, .nav-item.open .dropdown { visibility: visible; opacity: 1; transform: translateY(0); }
 
-        .breadcrumb { font-size: 14px; color: var(--muted); padding: 16px 20px; max-width: 1200px; margin: 0 auto; }
-        .breadcrumb a { color: var(--navy); text-decoration: none; }
+        .breadcrumb-bar { background: var(--white); border-bottom: 1px solid var(--line); }
+        .breadcrumb { font-size: 13px; color: var(--muted); padding: 12px 0; max-width: 1140px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+        .breadcrumb a { color: var(--green-mid); text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
 
-        .search-hero { background: linear-gradient(135deg, var(--navy) 0%, #2e4560 100%); padding: 70px 0 80px; text-align: center; }
-        .search-hero h1 { font-family: Georgia, serif; font-size: clamp(28px, 5vw, 42px); color: #fff; margin: 0 0 12px; }
-        .search-hero p { color: #c8dce8; font-size: clamp(15px, 2vw, 18px); max-width: 550px; margin: 0 auto 35px; }
-        .search-container { max-width: 680px; margin: 0 auto; padding: 0 20px; position: relative; }
+        .search-hero { background: linear-gradient(135deg, var(--green-deep) 0%, #2a5e42 100%); padding: 72px 0 80px; text-align: center; position: relative; overflow: hidden; }
+        .search-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(82,160,122,0.12) 0%, transparent 65%); pointer-events: none; }
+        .search-hero h1 { font-family: 'Inter', system-ui, sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; letter-spacing: -0.8px; color: #fff; margin: 0 0 12px; position: relative; }
+        .search-hero p { color: rgba(255,255,255,0.72); font-size: clamp(15px, 2vw, 17px); max-width: 550px; margin: 0 auto 35px; position: relative; }
+        .search-container { max-width: 680px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
         .search-box { display: flex; background: var(--surface); border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.25); overflow: hidden; }
         .search-input-wrap { flex: 1; position: relative; display: flex; align-items: center; }
         .search-icon { position: absolute; left: 20px; color: #95a5a6; font-size: 20px; pointer-events: none; }
-        .search-input { width: 100%; padding: 20px 20px 20px 52px; border: none; font-size: 16px; outline: none; background: transparent; color: #fff; }
+        .search-input { width: 100%; padding: 20px 20px 20px 52px; border: none; font-size: 16px; outline: none; background: transparent; color: #fff; font-family: 'Inter', system-ui, sans-serif; }
         .search-input::placeholder { color: rgba(255,255,255,0.6); }
-        .search-btn { background-color: var(--orange); color: white; border: none; padding: 0 32px; font-weight: 700; font-size: 15px; cursor: pointer; transition: background-color 0.3s; white-space: nowrap; }
-        .search-btn:hover { background-color: var(--orange-dark); }
+        .search-btn { background-color: var(--green-light); color: white; border: none; padding: 0 32px; font-weight: 700; font-size: 15px; cursor: pointer; transition: background-color 0.3s; white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; }
+        .search-btn:hover { background-color: var(--green-mid); }
 
         .suggestions { position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 20; display: none; max-height: 320px; overflow-y: auto; }
         .suggestions.active { display: block; }
@@ -84,69 +81,75 @@
 
         .results-area { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .status-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 30px 0 10px; }
-        .status-bar h2 { font-family: Georgia, serif; color: var(--navy); margin: 0; }
+        .status-bar h2 { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; letter-spacing: -0.3px; color: var(--green-deep); margin: 0; }
         .status-count { font-size: 14px; color: var(--muted); background: var(--white); padding: 6px 14px; border-radius: 20px; border: 1px solid var(--line); }
 
         .empty-state, .loading, .no-results { text-align: center; padding: 60px 20px; }
         .empty-state .icon { font-size: 64px; margin-bottom: 20px; opacity: 0.15; }
 
-        .club-card { background: var(--white); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,0.05); margin-bottom: 28px; overflow: hidden; }
+        .club-card { background: var(--white); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 18px rgba(0,0,0,0.05); margin-bottom: 28px; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+        .club-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.09); transform: translateY(-2px); }
         .club-header { padding: 24px 28px 16px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-        .club-info h3 { margin: 0 0 6px; font-family: Georgia, serif; color: var(--navy); }
+        .club-info h3 { margin: 0 0 6px; font-family: 'Inter', system-ui, sans-serif; font-weight: 700; letter-spacing: -0.3px; color: var(--green-deep); }
         .club-meta { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; color: var(--muted); }
-        .club-badge { background: var(--navy); color: white; padding: 12px 18px; border-radius: 8px; text-align: center; min-width: 78px; }
-        .club-badge .num { font-size: 28px; color: var(--orange); font-weight: bold; line-height: 1; }
-        .club-badge .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .club-badge { background: var(--green-deep); color: white; padding: 12px 18px; border-radius: 10px; text-align: center; min-width: 78px; }
+        .club-badge .num { font-size: 28px; color: var(--green-light); font-weight: 800; line-height: 1; }
+        .club-badge .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.6); }
 
-        .members-toggle { width: 100%; padding: 16px 28px; background: #f8fafb; border: none; border-top: 1px solid var(--line); font-weight: 700; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
-        .members-toggle:hover { background: #f0f5f8; }
+        .members-toggle { width: 100%; padding: 16px 28px; background: var(--cream); border: none; border-top: 1px solid var(--line); font-weight: 600; color: var(--green-deep); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-family: 'Inter', system-ui, sans-serif; }
+        .members-toggle:hover { background: #edf0ec; }
         .members-list { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
         .members-list.open { max-height: 9999px; }
         .member-row { padding: 16px 28px; display: flex; align-items: center; gap: 16px; border-top: 1px solid var(--line); flex-wrap: wrap; }
-        .member-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), #2e4560); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 15px; }
+        .member-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--green-deep), var(--green-mid)); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 15px; }
         .member-detail { flex: 1; min-width: 160px; }
-        .member-detail .member-name { font-weight: 700; }
+        .member-detail .member-name { font-weight: 700; color: var(--text); }
         .member-detail .member-sub { font-size: 13px; color: var(--muted); }
-        .btn-connect { padding: 8px 20px; border: 2px solid var(--navy); color: var(--navy); border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 13px; transition: all 0.2s; white-space: nowrap; }
-        .btn-connect:hover { background: var(--navy); color: white; }
+        .btn-connect { padding: 8px 20px; border: 1.5px solid var(--green-mid); color: var(--green-mid); border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 13px; transition: all 0.2s; white-space: nowrap; }
+        .btn-connect:hover { background: var(--green-mid); color: white; }
 
-        .loading .spinner { width: 40px; height: 40px; border: 4px solid var(--line); border-top-color: var(--orange); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+        .loading .spinner { width: 40px; height: 40px; border: 4px solid var(--line); border-top-color: var(--green-light); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
         .f-row { display: flex; flex-wrap: wrap; gap: 30px; }
         .f-col { flex: 1 1 0; min-width: 0; }
         .f-col-60 { flex: 1 1 60%; }
-        footer { background: var(--navy-dark); color: #c5cfd6; padding: 60px 0 28px; font-size: 14px; margin-top: 60px; }
-        footer h4 { color: #fff; margin: 0 0 18px; font-size: 16px; font-family: Georgia, serif; }
+        footer { background: #0d1a10; color: rgba(255,255,255,0.45); padding: 60px 0 28px; font-size: 14px; margin-top: 60px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+        .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+        .footer-brand-name span { color: var(--green-light); font-weight: 400; }
+        .footer-brand p { margin: 0; line-height: 1.7; font-size: 13px; }
+        footer h4 { color: rgba(255,255,255,0.7); margin: 0 0 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
         footer ul { list-style: none; padding: 0; margin: 0; }
         footer li { margin-bottom: 10px; }
-        footer a { color: #c5cfd6; text-decoration: none; transition: color 0.2s; }
+        footer a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
         footer a:hover { color: #fff; }
-        .footer-muted { color: #8fa5b2; }
-        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e2e3a; text-align: center; font-size: 12px; color: #6b8494; }
+        .footer-bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.07); text-align: center; font-size: 12px; color: rgba(255,255,255,0.22); }
 
         @media (max-width: 860px) {
             .nav-toggle { display: block; }
             .nav-list {
                 position: absolute; top: 100%; left: 0; right: 0;
-                flex-direction: column; background: var(--header-bg);
-                box-shadow: 0 8px 18px rgba(0,0,0,0.12); padding: 10px 0; display: none;
+                flex-direction: column; background: var(--white);
+                border-bottom: 1px solid var(--line); padding: 8px 0; display: none;
             }
             .nav-list.open { display: flex; }
             .nav-item { margin: 0; }
-            .nav-link { display: block; padding: 14px 20px; }
+            .nav-link { display: block; padding: 12px 20px; }
+            .nav-cta { margin: 8px 20px 12px; display: block; text-align: center; }
             .dropdown {
                 position: static; visibility: visible; opacity: 1; transform: none;
                 box-shadow: none; border-top: 0; min-width: 0; padding: 0;
                 max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
-                background: var(--bg);
+                background: var(--cream); border-radius: 0;
             }
             .nav-item.open .dropdown { max-height: 400px; }
-            .dropdown a { padding-left: 36px; }
+            .dropdown a { padding-left: 34px; }
             .search-box { flex-direction: column; }
             .search-btn { padding: 18px; }
             .club-header { padding: 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -154,55 +157,61 @@
 
 <header class="main-header">
     <div class="header-wrap">
-        <a href="index.html" class="logo-placeholder">NCAA <span>Tennis</span> Alumni</a>
+        <a href="index.html" class="logo-placeholder">NCAA Tennis <span>Alumni</span></a>
         <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
             <span></span><span></span><span></span>
         </button>
         <nav aria-label="Primary">
             <ul class="nav-list" id="primary-nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">About Us ▾</a>
+                    <a href="#" class="nav-link">About ▾</a>
                     <ul class="dropdown">
-                        <li><a href="#">Our Mission</a></li>
-                        <li><a href="#">Network Framework</a></li>
+                        <li><a href="our-mission.html">Our Mission</a></li>
+                        <li><a href="network-framework.html">Network Framework</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Community ▾</a>
+                    <a href="#" class="nav-link">Community ▾</a>
                     <ul class="dropdown">
-                        <li><a href="#">Who We Are</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                        <li><a href="#">Chapters</a></li>
+                        <li><a href="who-we-are.html">Who We Are</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="chapters.html">Chapters</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Connect ▾</a>
+                    <a href="#" class="nav-link">Connect ▾</a>
                     <ul class="dropdown">
                         <li><a href="find-members2.html">Find Alumni Near You</a></li>
-                        <li><a href="join.html">Join Us</a></li>
+                        <li><a href="reconnect.html">Reconnect with Alumni</a></li>
+                        <li><a href="join.html">Join the Network</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Opportunities ▾</a>
+                    <a href="#" class="nav-link">News ▾</a>
                     <ul class="dropdown">
-                        <li><a href="#">Reconnect with Alumni</a></li>
-                        <li><a href="#">Newsflash</a></li>
+                        <li><a href="reconnect.html">Member Spotlight</a></li>
+                        <li><a href="newsflash.html">Newsflash</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Give ▾</a>
+                    <a href="#" class="nav-link">Give ▾</a>
                     <ul class="dropdown">
-                        <li><a href="#">Donations</a></li>
-                        <li><a href="#">How We're Funded</a></li>
+                        <li><a href="donations.html">Donate</a></li>
+                        <li><a href="how-funded.html">How We're Funded</a></li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="find-members2.html" class="nav-cta">Find Alumni</a>
                 </li>
             </ul>
         </nav>
     </div>
 </header>
 
-<div class="breadcrumb">
-    <a href="index.html">Home</a> › Connect › <strong>Find Members Near Me</strong>
+<div class="breadcrumb-bar">
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> › Connect › <strong>Find Alumni Near You</strong>
+    </div>
 </div>
 
 <section class="search-hero">
@@ -244,31 +253,31 @@
 
 <footer>
     <div class="container">
-        <div class="f-row">
-            <div class="f-col-60">
-                <h4>Collegiate Tennis Alumni Network</h4>
-                <p class="footer-muted">A professional and recreational collective unifying former collegiate tennis players across all divisions and chapters.</p>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-brand-name">NCAA Tennis <span>Alumni</span></div>
+                <p>A collective unifying former collegiate tennis players across all divisions, chapters, and generations.</p>
             </div>
-            <div class="f-col">
+            <div>
                 <h4>Explore</h4>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Who We Are</a></li>
-                    <li><a href="join.html">Join Us</a></li>
-                    <li><a href="#">Latest Newsflash</a></li>
-                    <li><a href="#">Financial Transparency</a></li>
+                    <li><a href="who-we-are.html">Who We Are</a></li>
+                    <li><a href="find-members2.html">Find Alumni Near Me</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="newsflash.html">Latest Newsflash</a></li>
+                    <li><a href="how-funded.html">Financial Transparency</a></li>
                 </ul>
             </div>
-            <div class="f-col">
+            <div>
                 <h4>Contact</h4>
                 <ul>
-                    <li><strong>Email:</strong> <a href="mailto:network@example.org">network@example.org</a></li>
-                    <li><strong>Support:</strong> <a href="mailto:support@example.org">support@example.org</a></li>
+                    <li><a href="mailto:network@example.org">network@example.org</a></li>
+                    <li><a href="mailto:support@example.org">support@example.org</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 NCAA Tennis Alumni Network. Not affiliated with the National Collegiate Athletic Association.</p>
+            &copy; 2026 NCAA Tennis Alumni Network. Not affiliated with the National Collegiate Athletic Association.
         </div>
     </div>
 </footer>

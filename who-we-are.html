@@ -11,7 +11,7 @@
         *, *::before, *::after { box-sizing: border-box; }
         :root { --green-deep:#1c3b2d; --green-mid:#2d6a4f; --green-light:#52a07a; --cream:#f7f5f0; --white:#fff; --text:#2d3748; --muted:#718096; --line:#e2e8e0; --surface:#fff; }
         html { scroll-behavior: smooth; }
-        body { margin:0; font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:var(--text); line-height:1.6; font-size:15px; }
+        body { margin:0; font-family:'Inter',system-ui,sans-serif; background:var(--cream); background-image:url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1920&q=80'); background-size:cover; background-attachment:fixed; background-position:center; color:var(--text); line-height:1.6; font-size:15px; }
         :focus-visible { outline:2px solid var(--green-mid); outline-offset:3px; border-radius:3px; }
         :focus:not(:focus-visible) { outline:none; }
         .container { max-width:1140px; margin:0 auto; padding:0 24px; }
@@ -53,8 +53,8 @@
         .page-hero p { font-size:17px; max-width:520px; color:rgba(255,255,255,0.72); margin:0; line-height:1.6; }
 
         /* Sections */
-        .section-block { padding:88px 0; background:var(--surface); border-bottom:1px solid var(--line); }
-        .section-block.alt { background:var(--cream); }
+        .section-block { padding:88px 0; background:rgba(255,255,255,0.93); border-bottom:1px solid var(--line); }
+        .section-block.alt { background:rgba(247,245,240,0.93); }
         .eyebrow { display:block; font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--green-mid); margin:0 0 12px; }
         .section-title { font-size:clamp(26px,3.5vw,36px); font-weight:700; color:var(--green-deep); margin:0 0 14px; line-height:1.15; letter-spacing:-0.5px; }
         .section-sub { font-size:16px; color:var(--muted); margin:0 0 40px; line-height:1.6; }
@@ -140,6 +140,15 @@
             .footer-grid { grid-template-columns:1fr; }
             .footer-bottom { flex-direction:column; text-align:center; }
         }
+        @media (max-width: 860px) {
+            .nav-list { align-items: stretch; }
+            .nav-item { width: 100%; display: flex; justify-content: center; }
+            #primary-nav > .nav-item > .nav-link { flex: 0 0 170px; width: 170px; min-width: 170px; max-width: 170px; display: flex !important; align-items: center; justify-content: space-between; gap: 10px; text-align: left; }
+            .nav-caret { flex: 0 0 auto; font-size: 0.75em; line-height: 1; }
+            .nav-cta { width: 240px; max-width: calc(100% - 40px); margin: 14px auto 12px; }
+            .dropdown { width: 100%; text-align: center; }
+            .dropdown a { padding-left: 20px; padding-right: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -149,11 +158,11 @@
         <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span></button>
         <nav aria-label="Primary">
             <ul class="nav-list" id="primary-nav">
-                <li class="nav-item"><a href="#" class="nav-link">About ▾</a><ul class="dropdown"><li><a href="our-mission.html">Our Mission</a></li><li><a href="network-framework.html">Network Framework</a></li></ul></li>
-                <li class="nav-item"><a href="#" class="nav-link">Community ▾</a><ul class="dropdown"><li><a href="who-we-are.html">Who We Are</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="chapters.html">Chapters</a></li></ul></li>
-                <li class="nav-item"><a href="#" class="nav-link">Connect ▾</a><ul class="dropdown"><li><a href="find-members2.html">Find Alumni Near You</a></li><li><a href="reconnect.html">Reconnect with Alumni</a></li><li><a href="join.html">Join the Network</a></li></ul></li>
-                <li class="nav-item"><a href="#" class="nav-link">News ▾</a><ul class="dropdown"><li><a href="reconnect.html">Member Spotlight</a></li><li><a href="newsflash.html">Newsflash</a></li></ul></li>
-                <li class="nav-item"><a href="#" class="nav-link">Give ▾</a><ul class="dropdown"><li><a href="donations.html">Donate</a></li><li><a href="how-funded.html">How We're Funded</a></li></ul></li>
+                <li class="nav-item"><a href="#" class="nav-link">About <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="our-mission.html">Our Mission</a></li><li><a href="network-framework.html">Network Framework</a></li></ul></li>
+                <li class="nav-item"><a href="#" class="nav-link">Community <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="who-we-are.html">Who We Are</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="chapters.html">Chapters</a></li></ul></li>
+                <li class="nav-item"><a href="#" class="nav-link">Connect <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="find-members2.html">Find Alumni Near You</a></li><li><a href="reconnect.html">Reconnect &amp; Join</a></li></ul></li>
+                <li class="nav-item"><a href="#" class="nav-link">News <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="reconnect.html#spotlight">Member Spotlight</a></li><li><a href="newsflash.html">Newsflash</a></li></ul></li>
+                <li class="nav-item"><a href="#" class="nav-link">Give <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="donations.html">Donate</a></li><li><a href="how-funded.html">How We're Funded</a></li></ul></li>
                 <li class="nav-item"><a href="find-members2.html" class="nav-cta">Find Alumni</a></li>
             </ul>
         </nav>
@@ -179,7 +188,7 @@
                 <p>Every member of this network competed on a varsity collegiate tennis team. That shared experience — early morning practices, conference tournaments, the discipline of balancing academics and competition — forms the bedrock of who we are and why this community works.</p>
                 <p>Our members span Division I programs at major research universities to tight-knit Division III liberal arts colleges. We represent every graduation year from the late 1990s through the class of 2025. We are coaches, engineers, lawyers, doctors, founders, and artists. What unites us is the court.</p>
                 <p>We are alumni-run, which means the people making decisions are the same people who benefit from those decisions. There is no outside management layer — just former players investing time and energy to keep something meaningful alive.</p>
-                <a href="join.html" class="text-link" style="margin-top:8px;display:inline-block;">Join the network →</a>
+                <a href="reconnect.html#join" class="text-link" style="margin-top:8px;display:inline-block;">Join the network →</a>
             </div>
             <div class="col-40">
                 <div class="stat-card">
@@ -206,18 +215,6 @@
             <div class="feature-card"><div class="feature-icon">🎓</div><h3>Division Breakdown</h3><p>Approximately 48% D-I, 30% D-II, and 22% D-III alumni — one of the most balanced cross-division networks in collegiate sports.</p></div>
             <div class="feature-card"><div class="feature-icon">💼</div><h3>Career Sectors</h3><p>Finance, technology, law, medicine, education, and entrepreneurship are the top six sectors our members work in.</p></div>
             <div class="feature-card"><div class="feature-icon">🗓️</div><h3>Graduation Range</h3><p>Members graduated between 1996 and 2025, with the largest cohorts from classes 2015–2023.</p></div>
-        </div>
-    </div>
-</section>
-
-<section class="cta-section">
-    <div class="container">
-        <span class="eyebrow">Join Us</span>
-        <h2 class="section-title">Ready to Connect?</h2>
-        <p>Find alumni near you or join the network and stay part of the game.</p>
-        <div class="cta-buttons">
-            <a href="find-members2.html" class="btn btn-white">Find Alumni Near You</a>
-            <a href="join.html" class="btn btn-outline-white">Join the Network</a>
         </div>
     </div>
 </section>

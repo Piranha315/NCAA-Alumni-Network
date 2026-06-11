@@ -17,7 +17,7 @@
             --green:       #52a07a;
             --green-bg:    #2d6a4f;
             --text:        #2d3748;
-            --muted:       #718096;
+            --muted:       #646363;
             --bg:          #f7f5f0;
             --line:        #e2e8e0;
             --surface:     #ffffff;
@@ -29,7 +29,7 @@
             --green-light: #52a07a;
             --cream:       #f7f5f0;
         }
-        body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background-color: var(--bg); background-image: url('https://images.unsplash.com/photo-1549060279-7e168fcee0c2?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-attachment: fixed; background-position: center; color: var(--text); line-height: 1.6; }
 
         .main-header { background: var(--white); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 16px rgba(0,0,0,0.05); }
         .header-wrap { display: flex; align-items: center; justify-content: space-between; max-width: 1140px; margin: 0 auto; padding: 20px 24px; }
@@ -100,7 +100,11 @@
         .members-toggle { width: 100%; padding: 16px 28px; background: var(--cream); border: none; border-top: 1px solid var(--line); font-weight: 600; color: var(--green-deep); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-family: 'Inter', system-ui, sans-serif; }
         .members-toggle:hover { background: #edf0ec; }
         .members-list { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-        .members-list.open { max-height: 9999px; }
+        .members-list.open { max-height: 600px; overflow-y: auto; }
+        .members-list.open::-webkit-scrollbar { width: 6px; }
+        .members-list.open::-webkit-scrollbar-track { background: var(--cream); }
+        .members-list.open::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 3px; }
+        .members-list.open::-webkit-scrollbar-thumb:hover { background: var(--green-deep); }
         .member-row { padding: 16px 28px; display: flex; align-items: center; gap: 16px; border-top: 1px solid var(--line); flex-wrap: wrap; }
         .member-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--green-deep), var(--green-mid)); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 15px; }
         .member-detail { flex: 1; min-width: 160px; }
@@ -152,27 +156,36 @@
             .club-header { padding: 20px; }
             .footer-grid { grid-template-columns: 1fr; }
         }
+        @media (max-width: 860px) {
+            .nav-list { align-items: stretch; }
+            .nav-item { width: 100%; display: flex; justify-content: center; }
+            #primary-nav > .nav-item > .nav-link { flex: 0 0 170px; width: 170px; min-width: 170px; max-width: 170px; display: flex !important; align-items: center; justify-content: space-between; gap: 10px; text-align: left; }
+            .nav-caret { flex: 0 0 auto; font-size: 0.75em; line-height: 1; }
+            .nav-cta { width: 240px; max-width: calc(100% - 40px); margin: 14px auto 12px; }
+            .dropdown { width: 100%; text-align: center; }
+            .dropdown a { padding-left: 20px; padding-right: 20px; }
+        }
     </style>
 </head>
 <body>
 
 <header class="main-header">
     <div class="header-wrap">
-        <a href="landing-demo.html" class="logo-placeholder">NCAA Tennis <span>Alumni</span></a>
+        <a href="index.html" class="logo-placeholder">NCAA Tennis <span>Alumni</span></a>
         <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
             <span></span><span></span><span></span>
         </button>
         <nav aria-label="Primary">
             <ul class="nav-list" id="primary-nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">About ▾</a>
+                    <a href="#" class="nav-link">About <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="our-mission.html">Our Mission</a></li>
                         <li><a href="network-framework.html">Network Framework</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Community ▾</a>
+                    <a href="#" class="nav-link">Community <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="who-we-are.html">Who We Are</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
@@ -180,22 +193,21 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Connect ▾</a>
+                    <a href="#" class="nav-link">Connect <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="find-members2.html">Find Alumni Near You</a></li>
-                        <li><a href="reconnect.html">Reconnect with Alumni</a></li>
-                        <li><a href="join.html">Join the Network</a></li>
+                        <li><a href="reconnect.html">Reconnect &amp; Join</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">News ▾</a>
+                    <a href="#" class="nav-link">News <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
-                        <li><a href="reconnect.html">Member Spotlight</a></li>
+                        <li><a href="reconnect.html#spotlight">Member Spotlight</a></li>
                         <li><a href="newsflash.html">Newsflash</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Give ▾</a>
+                    <a href="#" class="nav-link">Give <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="donations.html">Donate</a></li>
                         <li><a href="how-funded.html">How We're Funded</a></li>
@@ -211,7 +223,7 @@
 
 <div class="breadcrumb-bar">
     <div class="breadcrumb">
-        <a href="landing-demo.html">Home</a> › Connect › <strong>Find Alumni Near You</strong>
+        <a href="index.html">Home</a> › Connect › <strong>Find Alumni Near You</strong>
     </div>
 </div>
 
@@ -219,13 +231,13 @@
     <div style="position:relative;z-index:1;">
         <div style="display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--green-light);background:rgba(82,160,122,0.15);border:1px solid rgba(82,160,122,0.3);padding:4px 14px;border-radius:20px;margin-bottom:16px;">Connect</div>
         <h1>Find Alumni Near You</h1>
-        <p>Search by city or member name to find alumni and discover which chapter they belong to.</p>
+        <p>Search by city, university, or member name to connect with fellow alumni.</p>
         <div class="search-container">
             <div class="search-box">
                 <div class="search-input-wrap">
-                    <span class="search-icon">📍</span>
+                    <span class="search-icon">🔍</span>
                     <input type="text" id="locationInput" class="search-input"
-                           placeholder="City (e.g. New York) or name (e.g. Harrison Adams)…" autocomplete="off">
+                           placeholder="City, university (e.g. Stanford), or name…" autocomplete="off">
                     <div class="suggestions" id="suggestions"></div>
                 </div>
                 <button class="search-btn" id="searchBtn">Search</button>
@@ -237,8 +249,8 @@
 <div class="results-area" style="padding-bottom:72px;">
     <div class="empty-state" id="emptyState" style="padding:72px 20px;">
         <div style="font-size:52px;margin-bottom:16px;opacity:0.25;">🎾</div>
-        <h3 style="font-size:20px;font-weight:700;color:var(--green-deep);margin:0 0 10px;letter-spacing:-0.3px;">Start Your Search</h3>
-        <p style="color:var(--muted);font-size:15px;max-width:400px;margin:0 auto;">Enter a city or member name above to find alumni in that area.</p>
+        <h3 style="font-size:20px;font-weight:700;color:var(--green);margin:0 0 10px;letter-spacing:-0.3px;">Start Your Search</h3>
+        <p style="color:var(--muted);font-size:15px;max-width:400px;margin:0 auto;"></p>
     </div>
     <div class="loading" id="loadingState" style="display:none;padding:72px 20px;">
         <div class="spinner"></div>
@@ -354,6 +366,23 @@ Object.entries(mockDatabase).forEach(([cityKey, cityData]) => {
     });
 });
 
+// Build a university index: { normalizedSchoolName -> { displayName, members: [{member, cityDisplay}] } }
+const universityIndex = {};
+memberIndex.forEach(({ member, cityDisplay }) => {
+    const raw = (member.school || '').trim();
+    if (!raw || raw === 'N/A' || raw === '-' || raw.startsWith('-\r')) return;
+    // Normalize: lowercase, strip leading dashes/whitespace
+    const key = raw.toLowerCase().replace(/^-\s*/, '').trim();
+    if (!key) return;
+    if (!universityIndex[key]) universityIndex[key] = { displayName: raw, members: [] };
+    universityIndex[key].members.push({ member, cityDisplay });
+});
+
+// Sorted list of unique university display names for autocomplete
+const universitySuggestions = Object.values(universityIndex)
+    .sort((a, b) => b.members.length - a.members.length)
+    .map(u => ({ label: u.displayName, count: u.members.length }));
+
 // Autocomplete — city suggestions + name suggestions
 input.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
@@ -361,22 +390,30 @@ input.addEventListener('input', () => {
 
     const citySuggestions = locationSuggestions
         .filter(s => s.label.toLowerCase().includes(q))
-        .slice(0, 6)
+        .slice(0, 4)
         .map(m => `<div class="suggestion-item" data-type="city" data-value="${esc(m.label)}">
             <span>📍</span><span>${esc(m.label)}</span>
             <span class="s-sub">${esc(m.sub)}</span>
          </div>`);
 
+    const uniSuggestions = universitySuggestions
+        .filter(u => u.label.toLowerCase().includes(q))
+        .slice(0, 4)
+        .map(u => `<div class="suggestion-item" data-type="university" data-value="${esc(u.label)}">
+            <span>🎓</span><span>${esc(u.label)}</span>
+            <span class="s-sub">${u.count} member${u.count !== 1 ? 's' : ''}</span>
+         </div>`);
+
     const nameSuggestions = memberIndex
         .filter(({ member }) => member.name.toLowerCase().includes(q))
-        .slice(0, 5)
+        .slice(0, 4)
         .map(({ member, cityDisplay }) =>
             `<div class="suggestion-item" data-type="name" data-value="${esc(member.name)}">
                 <span>👤</span><span>${esc(member.name)}</span>
                 <span class="s-sub">${esc(cityDisplay)}</span>
              </div>`);
 
-    const all = [...citySuggestions, ...nameSuggestions];
+    const all = [...citySuggestions, ...uniSuggestions, ...nameSuggestions];
     if (!all.length) { suggestionsEl.classList.remove('active'); return; }
     suggestionsEl.innerHTML = all.join('');
     suggestionsEl.classList.add('active');
@@ -397,7 +434,7 @@ document.addEventListener('click', e => {
 searchBtn.addEventListener('click', performSearch);
 input.addEventListener('keydown', e => { if (e.key === 'Enter') performSearch(); });
 
-// Returns {type:'city', data} or {type:'name', matches:[{member,cityDisplay}]} or null
+// Returns {type:'city', data} or {type:'university', uniData} or {type:'name', matches:[{member,cityDisplay}]} or null
 function resolveQuery(raw) {
     const q = raw.toLowerCase().trim();
     const cityQ = q.replace(/,.*$/, '').trim();
@@ -413,7 +450,11 @@ function resolveQuery(raw) {
         || null;
     if (cityData) return { type: 'city', data: cityData };
 
-    // 2. Fall back to name search across all members
+    // 2. Try university lookup (exact key match first, then partial)
+    const uniKey = Object.keys(universityIndex).find(k => k === q || k.includes(q) || q.includes(k));
+    if (uniKey) return { type: 'university', uniData: universityIndex[uniKey] };
+
+    // 3. Fall back to name search across all members
     const nameMatches = memberIndex.filter(({ member }) =>
         member.name.toLowerCase().includes(q)
     );
@@ -440,6 +481,8 @@ function performSearch() {
             noResults.style.display = 'block';
         } else if (result.type === 'city') {
             renderCityResults(result.data, raw);
+        } else if (result.type === 'university') {
+            renderUniversityResults(result.uniData, raw);
         } else {
             renderNameResults(result.matches, raw);
         }
@@ -470,6 +513,57 @@ function memberRowHTML(m, cityDisplay) {
             ${m.linkedin ? 'LinkedIn' : m.email ? 'Email' : 'Connect'}
         </a>
     </div>`;
+}
+
+function renderUniversityResults(uniData, searchedQuery) {
+    const members = uniData.members;
+    resultHeading.textContent = `${uniData.displayName} Alumni`;
+    resultCount.textContent   = `${members.length} member${members.length !== 1 ? 's' : ''}`;
+    statusBar.style.display   = 'flex';
+
+    // Group by city so members from different chapters are clearly organized
+    const byCity = {};
+    members.forEach(({ member, cityDisplay }) => {
+        if (!byCity[cityDisplay]) byCity[cityDisplay] = [];
+        byCity[cityDisplay].push(member);
+    });
+
+    const cityGroups = Object.entries(byCity);
+    const showCityBadge = cityGroups.length > 1;
+
+    resultsGrid.innerHTML = `
+        <div class="club-card">
+            <div class="club-header">
+                <div class="club-info">
+                    <h3 style="display:flex;align-items:center;gap:10px;">
+                        <span style="font-size:22px;">🎓</span> ${esc(uniData.displayName)}
+                    </h3>
+                    <div class="club-meta">
+                        <span>🎾 NCAA Collegiate Tennis Alumni</span>
+                        <span>📍 ${cityGroups.length} chapter${cityGroups.length !== 1 ? 's' : ''}</span>
+                    </div>
+                </div>
+                <div class="club-badge">
+                    <div class="num">${members.length}</div>
+                    <div class="label">Alumni</div>
+                </div>
+            </div>
+            <button class="members-toggle" id="uniToggleBtn" aria-expanded="false">
+                View ${members.length} Alumni Member${members.length !== 1 ? 's' : ''}
+                <span style="font-size:12px;transition:transform 0.3s;" id="uniChevron">▼</span>
+            </button>
+            <div class="members-list" id="uniMembersList">
+                ${members.map(({ member, cityDisplay }) => memberRowHTML(member, showCityBadge ? cityDisplay : null)).join('')}
+            </div>
+        </div>`;
+
+    document.getElementById('uniToggleBtn').addEventListener('click', () => {
+        const list = document.getElementById('uniMembersList');
+        const chev = document.getElementById('uniChevron');
+        const open = list.classList.toggle('open');
+        document.getElementById('uniToggleBtn').setAttribute('aria-expanded', open);
+        chev.style.transform = open ? 'rotate(180deg)' : '';
+    });
 }
 
 function renderCityResults(data, searchedLocation) {

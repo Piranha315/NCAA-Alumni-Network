@@ -233,6 +233,15 @@
             .footer-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; text-align: center; }
         }
+        @media (max-width: 860px) {
+            .nav-list { align-items: stretch; }
+            .nav-item { width: 100%; display: flex; justify-content: center; }
+            #primary-nav > .nav-item > .nav-link { flex: 0 0 170px; width: 170px; min-width: 170px; max-width: 170px; display: flex !important; align-items: center; justify-content: space-between; gap: 10px; text-align: left; }
+            .nav-caret { flex: 0 0 auto; font-size: 0.75em; line-height: 1; }
+            .nav-cta { width: 240px; max-width: calc(100% - 40px); margin: 14px auto 12px; }
+            .dropdown { width: 100%; text-align: center; }
+            .dropdown a { padding-left: 20px; padding-right: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -247,14 +256,14 @@
         <nav aria-label="Primary">
             <ul class="nav-list" id="primary-nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">About ▾</a>
+                    <a href="#" class="nav-link" aria-haspopup="true">About <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="our-mission.html">Our Mission</a></li>
                         <li><a href="network-framework.html">Network Framework</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Community ▾</a>
+                    <a href="#" class="nav-link" aria-haspopup="true">Community <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="who-we-are.html">Who We Are</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
@@ -262,22 +271,21 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Connect ▾</a>
+                    <a href="#" class="nav-link" aria-haspopup="true">Connect <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="find-members2.html">Find Alumni Near You</a></li>
-                        <li><a href="reconnect.html">Reconnect with Alumni</a></li>
-                        <li><a href="join.html">Join the Network</a></li>
+                        <li><a href="reconnect.html">Reconnect &amp; Join</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">News ▾</a>
+                    <a href="#" class="nav-link" aria-haspopup="true">News <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
-                        <li><a href="reconnect.html">Member Spotlight</a></li>
+                        <li><a href="reconnect.html#spotlight">Member Spotlight</a></li>
                         <li><a href="newsflash.html">Newsflash</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Give ▾</a>
+                    <a href="#" class="nav-link" aria-haspopup="true">Give <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="donations.html">Donate</a></li>
                         <li><a href="how-funded.html">How We're Funded</a></li>
@@ -464,7 +472,7 @@
         <p>Membership is free. Find your local chapter, reconnect with teammates, and keep the game alive.</p>
         <div class="cta-buttons">
             <a href="find-members2.html" class="btn btn-white">Find Alumni Near You</a>
-            <a href="join.html" class="btn btn-outline-white">Join the Network</a>
+            <a href="reconnect.html#join" class="btn btn-outline-white">Join the Network</a>
         </div>
     </div>
 </section>

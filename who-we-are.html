@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Who We Are — Collegiate Tennis Alumni Network</title>
+    <meta name="description" content="Who we are: 250+ former collegiate tennis players across all three NCAA divisions, united by the game.">
+    <meta property="og:title" content="Who We Are — Collegiate Tennis Alumni Network">
+    <meta property="og:description" content="Who we are: 250+ former collegiate tennis players across all three NCAA divisions, united by the game.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2746%27 fill=%27%2352a07a%27/%3E%3Cpath d=%27M14 22 A46 46 0 0 1 14 78 M86 22 A46 46 0 0 0 86 78%27 stroke=%27white%27 stroke-width=%275%27 fill=%27none%27/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,7 +16,7 @@
         *, *::before, *::after { box-sizing: border-box; }
         :root { --green-deep:#1c3b2d; --green-mid:#2d6a4f; --green-light:#52a07a; --cream:#f7f5f0; --white:#fff; --text:#2d3748; --muted:#718096; --line:#e2e8e0; --surface:#fff; }
         html { scroll-behavior: smooth; }
-        body { margin:0; font-family:'Inter',system-ui,sans-serif; background:var(--cream); background-image:url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1920&q=80'); background-size:cover; background-attachment:fixed; background-position:center; color:var(--text); line-height:1.6; font-size:15px; }
+        body { margin:0; font-family:'Inter',system-ui,sans-serif; background:var(--cream); background-image:url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1920&q=80'); background-size:cover; background-attachment:scroll; background-position:center; color:var(--text); line-height:1.6; font-size:15px; }
         :focus-visible { outline:2px solid var(--green-mid); outline-offset:3px; border-radius:3px; }
         :focus:not(:focus-visible) { outline:none; }
         .container { max-width:1140px; margin:0 auto; padding:0 24px; }
@@ -139,8 +144,7 @@
             .testimonials-grid { grid-template-columns:1fr; }
             .footer-grid { grid-template-columns:1fr; }
             .footer-bottom { flex-direction:column; text-align:center; }
-        }
-        @media (max-width: 860px) {
+        
             .nav-list { align-items: stretch; }
             .nav-item { width: 100%; display: flex; justify-content: center; }
             #primary-nav > .nav-item > .nav-link { flex: 0 0 170px; width: 170px; min-width: 170px; max-width: 170px; display: flex !important; align-items: center; justify-content: space-between; gap: 10px; text-align: left; }
@@ -158,12 +162,12 @@
         <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span></button>
         <nav aria-label="Primary">
             <ul class="nav-list" id="primary-nav">
-                <li class="nav-item"><a href="#" class="nav-link">About <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="our-mission.html">Our Mission</a></li><li><a href="network-framework.html">Network Framework</a></li></ul></li>
-                <li class="nav-item"><a href="#" class="nav-link">Community <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="who-we-are.html">Who We Are</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="chapters.html">Chapters</a></li></ul></li>
-                <li class="nav-item"><a href="#" class="nav-link">Connect <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="find-members2.html">Find Alumni Near You</a></li><li><a href="reconnect.html">Reconnect &amp; Join</a></li></ul></li>
-                <li class="nav-item"><a href="#" class="nav-link">News <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="reconnect.html#spotlight">Member Spotlight</a></li><li><a href="newsflash.html">Newsflash</a></li></ul></li>
-                <li class="nav-item"><a href="#" class="nav-link">Give <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="donations.html">Donate</a></li><li><a href="how-funded.html">How We're Funded</a></li></ul></li>
-                <li class="nav-item"><a href="find-members2.html" class="nav-cta">Find Alumni</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">About <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="our-mission.html">Our Mission</a></li><li><a href="network-framework.html">Network Framework</a></li></ul></li>
+                <li class="nav-item"><a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Community <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="who-we-are.html">Who We Are</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="chapters.html">Chapters</a></li></ul></li>
+                <li class="nav-item"><a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Connect <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="find-members.html">Find Alumni Near You</a></li><li><a href="reconnect.html">Reconnect &amp; Join</a></li></ul></li>
+                <li class="nav-item"><a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">News <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="reconnect.html#spotlight">Member Spotlight</a></li><li><a href="newsflash.html">Newsflash</a></li></ul></li>
+                <li class="nav-item"><a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Give <span class="nav-caret">▾</span></a><ul class="dropdown"><li><a href="donations.html">Donate</a></li><li><a href="how-funded.html">How We're Funded</a></li></ul></li>
+                <li class="nav-item"><a href="find-members.html" class="nav-cta">Find Alumni</a></li>
             </ul>
         </nav>
     </div>
@@ -173,7 +177,7 @@
     <div class="container">
         <div class="page-hero-eyebrow">Community</div>
         <h1>Who We Are</h1>
-        <p>700 former collegiate tennis players. One shared identity.</p>
+        <p>697 former collegiate tennis players. One shared identity.</p>
     </div>
 </section>
 
@@ -186,16 +190,16 @@
                 <span class="eyebrow">Built by Players, for Players</span>
                 <h2 class="section-title">A community grounded in the game</h2>
                 <p>Every member of this network competed on a varsity collegiate tennis team. That shared experience — early morning practices, conference tournaments, the discipline of balancing academics and competition — forms the bedrock of who we are and why this community works.</p>
-                <p>Our members span Division I programs at major research universities to tight-knit Division III liberal arts colleges. We represent every graduation year from the late 1990s through the class of 2025. We are coaches, engineers, lawyers, doctors, founders, and artists. What unites us is the court.</p>
+                <p>Our members span Division I programs at major research universities to tight-knit Division III liberal arts colleges. We represent every graduation year from 1980 through current student-athletes in their final seasons. We are coaches, engineers, lawyers, doctors, founders, and artists. What unites us is the court.</p>
                 <p>We are alumni-run, which means the people making decisions are the same people who benefit from those decisions. There is no outside management layer — just former players investing time and energy to keep something meaningful alive.</p>
                 <a href="reconnect.html#join" class="text-link" style="margin-top:8px;display:inline-block;">Join the network →</a>
             </div>
             <div class="col-40">
                 <div class="stat-card">
-                    <div class="stat-card-num">306</div>
+                    <div class="stat-card-num">697</div>
                     <div class="stat-card-lbl">Active members</div>
                     <hr class="stat-divider">
-                    <div class="stat-card-num">25+</div>
+                    <div class="stat-card-num">65+</div>
                     <div class="stat-card-lbl">Cities represented</div>
                     <hr class="stat-divider">
                     <div class="stat-card-num">3</div>
@@ -214,7 +218,7 @@
         <div class="card-grid">
             <div class="feature-card"><div class="feature-icon">🎓</div><h3>Division Breakdown</h3><p>Approximately 48% D-I, 30% D-II, and 22% D-III alumni — one of the most balanced cross-division networks in collegiate sports.</p></div>
             <div class="feature-card"><div class="feature-icon">💼</div><h3>Career Sectors</h3><p>Finance, technology, law, medicine, education, and entrepreneurship are the top six sectors our members work in.</p></div>
-            <div class="feature-card"><div class="feature-icon">🗓️</div><h3>Graduation Range</h3><p>Members graduated between 1996 and 2025, with the largest cohorts from classes 2015–2023.</p></div>
+            <div class="feature-card"><div class="feature-icon">🗓️</div><h3>Graduation Range</h3><p>Members graduated between 1980 and 2025 — plus early-admit student-athletes through the class of 2028 — with the largest cohorts from classes 2015–2023.</p></div>
         </div>
     </div>
 </section>
@@ -223,7 +227,7 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand"><div class="footer-brand-name">NCAA Tennis <span>Alumni</span></div><p>A collective unifying former collegiate tennis players across all divisions, chapters, and generations.</p></div>
-            <div><h4>Explore</h4><ul><li><a href="who-we-are.html">Who We Are</a></li><li><a href="find-members2.html">Find Alumni Near Me</a></li><li><a href="chapters.html">Chapters</a></li><li><a href="newsflash.html">Latest Newsflash</a></li><li><a href="how-funded.html">Financial Transparency</a></li></ul></div>
+            <div><h4>Explore</h4><ul><li><a href="who-we-are.html">Who We Are</a></li><li><a href="find-members.html">Find Alumni Near Me</a></li><li><a href="chapters.html">Chapters</a></li><li><a href="newsflash.html">Latest Newsflash</a></li><li><a href="how-funded.html">Financial Transparency</a></li></ul></div>
             <div><h4>Contact</h4><ul><li><a href="mailto:network@example.org">network@example.org</a></li><li><a href="mailto:support@example.org">support@example.org</a></li></ul></div>
         </div>
         <div class="footer-bottom"><span>&copy; 2026 NCAA Tennis Alumni Network. Not affiliated with the National Collegiate Athletic Association.</span></div>
@@ -233,7 +237,7 @@
 const toggle=document.querySelector('.nav-toggle'),navList=document.getElementById('primary-nav');
 if(toggle&&navList){toggle.addEventListener('click',()=>{const open=navList.classList.toggle('open');toggle.setAttribute('aria-expanded',open);});}
 const mq=window.matchMedia('(max-width: 860px)');
-document.querySelectorAll('.nav-item > .nav-link').forEach(link=>{link.addEventListener('click',e=>{const item=link.parentElement,dd=item&&item.querySelector('.dropdown');if(!dd)return;if(mq.matches){e.preventDefault();const isOpen=item.classList.toggle('open');link.setAttribute('aria-expanded',isOpen);item.parentElement.querySelectorAll('.nav-item').forEach(other=>{if(other!==item){other.classList.remove('open');const l=other.querySelector('.nav-link');if(l)l.setAttribute('aria-expanded','false');}});}});});
+document.querySelectorAll('.nav-item > .nav-link').forEach(link=>{link.addEventListener('click',e=>{const item=link.parentElement,dd=item&&item.querySelector('.dropdown');if(!dd)return;e.preventDefault();if(mq.matches){const isOpen=item.classList.toggle('open');link.setAttribute('aria-expanded',isOpen);item.parentElement.querySelectorAll('.nav-item').forEach(other=>{if(other!==item){other.classList.remove('open');const l=other.querySelector('.nav-link');if(l)l.setAttribute('aria-expanded','false');}});}});});
 mq.addEventListener('change',e=>{if(!e.matches){navList&&navList.classList.remove('open');toggle&&toggle.setAttribute('aria-expanded','false');document.querySelectorAll('.nav-item.open').forEach(i=>i.classList.remove('open'));}});
 </script>
 </body>

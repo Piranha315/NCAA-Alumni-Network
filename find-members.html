@@ -147,7 +147,7 @@
             }
             .nav-list.open { display: flex; }
             .nav-item { margin: 0; }
-            .nav-link { display: block; padding: 12px 20px; }
+            .nav-link { display: block; padding: 15px 20px; }
             .nav-cta { margin: 8px 20px 12px; display: block; text-align: center; }
             .dropdown {
                 position: static; visibility: visible; opacity: 1; transform: none;
@@ -163,11 +163,11 @@
             .footer-grid { grid-template-columns: 1fr; }
         
             .nav-list { align-items: stretch; }
-            .nav-item { width: 100%; display: flex; justify-content: center; }
-            #primary-nav > .nav-item > .nav-link { flex: 0 0 170px; width: 170px; min-width: 170px; max-width: 170px; display: flex !important; align-items: center; justify-content: space-between; gap: 10px; text-align: left; }
+            .nav-item { width: 100%; display: flex; flex-direction: column; align-items: stretch; }
+            #primary-nav > .nav-item > .nav-link { width: 100%; display: flex !important; align-items: center; justify-content: space-between; gap: 10px; text-align: left; }
             .nav-caret { flex: 0 0 auto; font-size: 0.75em; line-height: 1; }
             .nav-cta { width: 240px; max-width: calc(100% - 40px); margin: 14px auto 12px; }
-            .dropdown { width: 100%; text-align: center; }
+            .dropdown { width: 100%; text-align: left; }
             .dropdown a { padding-left: 20px; padding-right: 20px; }
         }
     </style>

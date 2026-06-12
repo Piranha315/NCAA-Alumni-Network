@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCAA Tennis Alumni Network</title>
+    <title>Collegiate Tennis Alumni Network</title>
+    <meta name="description" content="The Collegiate Tennis Alumni Network connects 250+ former NCAA tennis players across regional chapters, divisions, and generations — on and off the court.">
+    <meta property="og:title" content="NCAA Tennis Alumni Network">
+    <meta property="og:description" content="The Collegiate Tennis Alumni Network connects 250+ former NCAA tennis players across regional chapters, divisions, and generations — on and off the court.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2746%27 fill=%27%2352a07a%27/%3E%3Cpath d=%27M14 22 A46 46 0 0 1 14 78 M86 22 A46 46 0 0 0 86 78%27 stroke=%27white%27 stroke-width=%275%27 fill=%27none%27/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -200,7 +205,7 @@
         footer li { margin-bottom: 10px; }
         footer a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
         footer a:hover { color: #fff; }
-        .footer-bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.07); text-align: center; font-size: 12px; color: rgba(255,255,255,0.22); }
+        .footer-bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.22); }
 
         /* ── Responsive ── */
         @media (max-width: 900px) {
@@ -224,6 +229,14 @@
             .dropdown { position: static; visibility: visible; opacity: 1; transform: none; box-shadow: none; border-top: 0; min-width: 0; padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: var(--cream); border-radius: 0; }
             .nav-item.open .dropdown { max-height: 400px; }
             .dropdown a { padding-left: 34px; }
+        
+            .nav-list { align-items: stretch; }
+            .nav-item { width: 100%; display: flex; justify-content: center; }
+            #primary-nav > .nav-item > .nav-link { flex: 0 0 170px; width: 170px; min-width: 170px; max-width: 170px; display: flex !important; align-items: center; justify-content: space-between; gap: 10px; text-align: left; }
+            .nav-caret { flex: 0 0 auto; font-size: 0.75em; line-height: 1; }
+            .nav-cta { width: 240px; max-width: calc(100% - 40px); margin: 14px auto 12px; }
+            .dropdown { width: 100%; text-align: center; }
+            .dropdown a { padding-left: 20px; padding-right: 20px; }
         }
         @media (max-width: 600px) {
             .features-grid { grid-template-columns: 1fr; }
@@ -232,15 +245,6 @@
             .stat-bar-inner { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; text-align: center; }
-        }
-        @media (max-width: 860px) {
-            .nav-list { align-items: stretch; }
-            .nav-item { width: 100%; display: flex; justify-content: center; }
-            #primary-nav > .nav-item > .nav-link { flex: 0 0 170px; width: 170px; min-width: 170px; max-width: 170px; display: flex !important; align-items: center; justify-content: space-between; gap: 10px; text-align: left; }
-            .nav-caret { flex: 0 0 auto; font-size: 0.75em; line-height: 1; }
-            .nav-cta { width: 240px; max-width: calc(100% - 40px); margin: 14px auto 12px; }
-            .dropdown { width: 100%; text-align: center; }
-            .dropdown a { padding-left: 20px; padding-right: 20px; }
         }
     </style>
 </head>
@@ -256,14 +260,14 @@
         <nav aria-label="Primary">
             <ul class="nav-list" id="primary-nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">About <span class="nav-caret">▾</span></a>
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">About <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="our-mission.html">Our Mission</a></li>
                         <li><a href="network-framework.html">Network Framework</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Community <span class="nav-caret">▾</span></a>
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Community <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="who-we-are.html">Who We Are</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
@@ -271,28 +275,28 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Connect <span class="nav-caret">▾</span></a>
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Connect <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
-                        <li><a href="find-members2.html">Find Alumni Near You</a></li>
+                        <li><a href="find-members.html">Find Alumni Near You</a></li>
                         <li><a href="reconnect.html">Reconnect &amp; Join</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">News <span class="nav-caret">▾</span></a>
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">News <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="reconnect.html#spotlight">Member Spotlight</a></li>
                         <li><a href="newsflash.html">Newsflash</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-haspopup="true">Give <span class="nav-caret">▾</span></a>
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Give <span class="nav-caret">▾</span></a>
                     <ul class="dropdown">
                         <li><a href="donations.html">Donate</a></li>
                         <li><a href="how-funded.html">How We're Funded</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="find-members2.html" class="nav-cta">Find Alumni</a>
+                    <a href="find-members.html" class="nav-cta">Find Alumni</a>
                 </li>
             </ul>
         </nav>
@@ -308,9 +312,9 @@
     <div class="hero-content">
         <div class="hero-eyebrow">Collegiate Tennis Alumni Network</div>
         <h1>The Rally Doesn't End<br>at <em>Graduation</em></h1>
-        <p>Connecting 300+ former collegiate tennis players across regional chapters, divisions, and generations — on and off the court.</p>
+        <p>Connecting nearly 700 former collegiate tennis players across regional chapters, divisions, and generations — on and off the court.</p>
         <div class="hero-buttons">
-            <a href="find-members2.html" class="btn btn-primary">Find Alumni Near You</a>
+            <a href="find-members.html" class="btn btn-primary">Find Alumni Near You</a>
             <a href="chapters.html" class="btn btn-outline">Explore Chapters</a>
         </div>
     </div>
@@ -324,7 +328,7 @@
 <div class="stat-bar">
     <div class="stat-bar-inner">
         <div class="stat-item"><div class="stat-number">697</div><div class="stat-label">Active Members</div></div>
-        <div class="stat-item"><div class="stat-number">25+</div><div class="stat-label">Cities Represented</div></div>
+        <div class="stat-item"><div class="stat-number">65+</div><div class="stat-label">Cities Represented</div></div>
         <div class="stat-item"><div class="stat-number">8</div><div class="stat-label">Active Chapters</div></div>
         <div class="stat-item"><div class="stat-number">3</div><div class="stat-label">NCAA Divisions</div></div>
     </div>
@@ -343,7 +347,7 @@
             </div>
             <div class="about-visual">
                 <div class="about-card">
-                    <h3>306</h3>
+                    <h3>697</h3>
                     <p>Members &amp; growing</p>
                 </div>
                 <div class="about-card">
@@ -351,7 +355,7 @@
                     <p>All divisions welcome</p>
                 </div>
                 <div class="about-card">
-                    <h3>25+ Cities</h3>
+                    <h3>65+ Cities</h3>
                     <p>Local chapters nationwide</p>
                 </div>
             </div>
@@ -368,15 +372,15 @@
             <p>Membership is free and opens doors on and off the court.</p>
         </div>
         <div class="features-grid">
-            <a href="find-members2.html" class="feature-card">
+            <a href="find-members.html" class="feature-card">
                 <div class="feature-icon">🎾</div>
                 <h3>Hitting Partners</h3>
                 <p>Find fellow alumni in your city for casual hitting, drilling sessions, and local league play — no matter where life takes you.</p>
             </a>
-            <a href="find-members2.html" class="feature-card">
+            <a href="find-members.html" class="feature-card">
                 <div class="feature-icon">🤝</div>
                 <h3>Career Network</h3>
-                <p>Access a curated directory of 300+ professionals across finance, law, tech, medicine, and more. Real connections, no middleman.</p>
+                <p>Access a curated directory of professionals across finance, law, tech, medicine, and more across finance, law, tech, medicine, and more. Real connections, no middleman.</p>
             </a>
             <a href="chapters.html" class="feature-card">
                 <div class="feature-icon">📍</div>
@@ -471,7 +475,7 @@
         <h2>The Rally Doesn't End Here</h2>
         <p>Membership is free. Find your local chapter, reconnect with teammates, and keep the game alive.</p>
         <div class="cta-buttons">
-            <a href="find-members2.html" class="btn btn-white">Find Alumni Near You</a>
+            <a href="find-members.html" class="btn btn-white">Find Alumni Near You</a>
             <a href="reconnect.html#join" class="btn btn-outline-white">Join the Network</a>
         </div>
     </div>
@@ -489,7 +493,7 @@
                 <h4>Explore</h4>
                 <ul>
                     <li><a href="who-we-are.html">Who We Are</a></li>
-                    <li><a href="find-members2.html">Find Alumni Near Me</a></li>
+                    <li><a href="find-members.html">Find Alumni Near Me</a></li>
                     <li><a href="chapters.html">Chapters</a></li>
                     <li><a href="newsflash.html">Latest Newsflash</a></li>
                     <li><a href="how-funded.html">Financial Transparency</a></li>
@@ -510,7 +514,7 @@
 </footer>
 
 <script>
-const MAP_DATA = [{"city": "New York, New York", "count": 148, "lat": 40.7128, "lng": -74.006}, {"city": "United States", "count": 14, "lat": 39.5, "lng": -98.35}, {"city": "San Francisco, California", "count": 8, "lat": 37.7749, "lng": -122.4194}, {"city": "Los Angeles, California", "count": 6, "lat": 34.0522, "lng": -118.2437}, {"city": "Philadelphia, Pennsylvania", "count": 5, "lat": 39.9526, "lng": -75.1652}, {"city": "Atlanta, Georgia", "count": 5, "lat": 33.749, "lng": -84.388}, {"city": "Miami, Florida", "count": 5, "lat": 25.7617, "lng": -80.1918}, {"city": "Orlando, Florida", "count": 4, "lat": 28.5383, "lng": -81.3792}, {"city": "Brooklyn, New York", "count": 4, "lat": 40.6782, "lng": -73.9442}, {"city": "Smithfield, Rhode Island", "count": 2, "lat": 41.9001, "lng": -71.5495}, {"city": "White Plains, New York", "count": 2, "lat": 41.034, "lng": -73.7629}, {"city": "Chicago, Illinois", "count": 2, "lat": 41.8781, "lng": -87.6298}, {"city": "Charlottesville, Virginia", "count": 2, "lat": 38.0293, "lng": -78.4767}, {"city": "Locust Valley, New York", "count": 1, "lat": 40.8726, "lng": -73.5993}, {"city": "Olathe, Kansas", "count": 1, "lat": 38.8814, "lng": -94.8191}, {"city": "Dallas, Texas", "count": 1, "lat": 32.7767, "lng": -96.797}, {"city": "Albany, New York", "count": 1, "lat": 42.6526, "lng": -73.7562}, {"city": "Cincinnati, Ohio", "count": 1, "lat": 39.1031, "lng": -84.512}, {"city": "Denver, Colorado", "count": 1, "lat": 39.7392, "lng": -104.9903}, {"city": "San Diego, California", "count": 1, "lat": 32.7157, "lng": -117.1611}, {"city": "Boston, Massachusetts", "count": 1, "lat": 42.3601, "lng": -71.0589}, {"city": "Seattle, Washington", "count": 1, "lat": 47.6062, "lng": -122.3321}, {"city": "Louisville, Kentucky", "count": 1, "lat": 38.2527, "lng": -85.7585}, {"city": "Washington, District of Columbia", "count": 1, "lat": 38.9072, "lng": -77.0369}, {"city": "Raleigh, North Carolina", "count": 1, "lat": 35.7796, "lng": -78.6382}, {"city": "Hoboken, New Jersey", "count": 1, "lat": 40.744, "lng": -74.0324}];
+const MAP_DATA = [{"city": "New York, New York", "count": 143, "lat": 40.7128, "lng": -74.006}, {"city": "San Francisco, California", "count": 8, "lat": 37.7749, "lng": -122.4194}, {"city": "Los Angeles, California", "count": 5, "lat": 34.0522, "lng": -118.2437}, {"city": "Philadelphia, Pennsylvania", "count": 5, "lat": 39.9526, "lng": -75.1652}, {"city": "Atlanta, Georgia", "count": 5, "lat": 33.749, "lng": -84.388}, {"city": "Miami, Florida", "count": 5, "lat": 25.7617, "lng": -80.1918}, {"city": "Brooklyn, New York", "count": 4, "lat": 40.6782, "lng": -73.9442}, {"city": "Orlando, Florida", "count": 3, "lat": 28.5383, "lng": -81.3792}, {"city": "White Plains, New York", "count": 2, "lat": 41.034, "lng": -73.7629}, {"city": "Chicago, Illinois", "count": 2, "lat": 41.8781, "lng": -87.6298}, {"city": "Boston, Massachusetts", "count": 2, "lat": 42.3601, "lng": -71.0589}, {"city": "Smithfield, Rhode Island", "count": 1, "lat": 41.9001, "lng": -71.5495}, {"city": "Charlottesville, Virginia", "count": 1, "lat": 38.0293, "lng": -78.4767}, {"city": "Locust Valley, New York", "count": 1, "lat": 40.8726, "lng": -73.5993}, {"city": "Olathe, Kansas", "count": 1, "lat": 38.8814, "lng": -94.8191}, {"city": "Dallas, Texas", "count": 1, "lat": 32.7767, "lng": -96.797}, {"city": "Albany, New York", "count": 1, "lat": 42.6526, "lng": -73.7562}, {"city": "Cincinnati, Ohio", "count": 1, "lat": 39.1031, "lng": -84.512}, {"city": "Denver, Colorado", "count": 1, "lat": 39.7392, "lng": -104.9903}, {"city": "San Diego, California", "count": 1, "lat": 32.7157, "lng": -117.1611}, {"city": "Seattle, Washington", "count": 1, "lat": 47.6062, "lng": -122.3321}, {"city": "Louisville, Kentucky", "count": 1, "lat": 38.2527, "lng": -85.7585}, {"city": "Washington, District of Columbia", "count": 1, "lat": 38.9072, "lng": -77.0369}, {"city": "Raleigh, North Carolina", "count": 1, "lat": 35.7796, "lng": -78.6382}, {"city": "Hoboken, New Jersey", "count": 1, "lat": 40.744, "lng": -74.0324}];
 
 // Transparent → sticky header
 (function() {
@@ -535,8 +539,8 @@ document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
         const item = link.parentElement;
         const dd   = item && item.querySelector('.dropdown');
         if (!dd) return;
+        e.preventDefault();
         if (mq.matches) {
-            e.preventDefault();
             const isOpen = item.classList.toggle('open');
             link.setAttribute('aria-expanded', isOpen);
             item.parentElement.querySelectorAll('.nav-item').forEach(other => {
@@ -580,7 +584,7 @@ mq.addEventListener('change', e => {
             if (d.count >= 16) pinsG.append('circle').attr('cx',x).attr('cy',y).attr('r',r+6).attr('fill','none').attr('stroke',color).attr('stroke-width',1.5).attr('opacity',0.3);
             const circle = pinsG.append('circle').attr('cx',x).attr('cy',y).attr('r',r).attr('fill',color).attr('opacity',0.9).attr('stroke','#fff').attr('stroke-width',1.5).style('cursor','pointer').attr('tabindex',0).attr('role','button').attr('aria-label', d.city+': '+d.count+' members');
             function showTip() { const rect=container.getBoundingClientRect(), svgRect=svgEl.getBoundingClientRect(), sx=svgRect.width/W, sy=svgRect.height/H; tipDiv.innerHTML='<strong>'+d.city+'</strong><br><span style="color:rgba(255,255,255,0.65)">'+d.count+' member'+(d.count!==1?'s':'')+'</span>'; tipDiv.style.left=(x*sx+(svgRect.left-rect.left)+r*sx+8)+'px'; tipDiv.style.top=(y*sy+(svgRect.top-rect.top)-18)+'px'; tipDiv.style.display='block'; }
-            circle.on('mouseenter',showTip).on('focus',showTip).on('mouseleave',()=>{tipDiv.style.display='none';}).on('blur',()=>{tipDiv.style.display='none';}).on('click',()=>{ window.location.href='find-members2.html?q='+encodeURIComponent(d.city.split(',')[0].trim()); }).on('keydown',(event)=>{ if(event.key==='Enter'||event.key===' '){ event.preventDefault(); window.location.href='find-members2.html?q='+encodeURIComponent(d.city.split(',')[0].trim()); }});
+            circle.on('mouseenter',showTip).on('focus',showTip).on('mouseleave',()=>{tipDiv.style.display='none';}).on('blur',()=>{tipDiv.style.display='none';}).on('click',()=>{ window.location.href='find-members.html?q='+encodeURIComponent(d.city.split(',')[0].trim()); }).on('keydown',(event)=>{ if(event.key==='Enter'||event.key===' '){ event.preventDefault(); window.location.href='find-members.html?q='+encodeURIComponent(d.city.split(',')[0].trim()); }});
             if (d.count >= 5) pinsG.append('text').attr('x',x).attr('y',y).attr('text-anchor','middle').attr('dominant-baseline','central').attr('fill','#fff').attr('font-size',r>12?10:8).attr('font-weight',700).attr('font-family','Inter,system-ui,sans-serif').attr('pointer-events','none').text(d.count);
         });
     }).catch(() => { svgEl.innerHTML = '<text x="480" y="290" text-anchor="middle" fill="#718096" font-family="Inter,sans-serif" font-size="14">Map unavailable — check your connection</text>'; });

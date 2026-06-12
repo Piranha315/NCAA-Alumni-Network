@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tennis Alumni Network — Stay In The Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#f9f6f0;color:#1c1c1c;line-height:1.7;overflow-x:hidden;}
+
+:root{
+  --green:#0a2e1a;
+  --green2:#133d25;
+  --lime:#c8f135;
+  --cream:#f9f6f0;
+  --sand:#ede9e0;
+  --muted:#8a9980;
+  --text:#3d3d3d;
+  --white:#fff;
+}
+
+/* HEADER */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:22px 5%;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background .4s,backdrop-filter .4s,padding .3s;
+}
+header.scrolled{
+  background:rgba(10,46,26,.95);
+  backdrop-filter:blur(12px);
+  padding:16px 5%;
+  border-bottom:1px solid rgba(200,241,53,.12);
+}
+.logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px;letter-spacing:2px;
+  color:#fff;text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+}
+.logo-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--lime);display:inline-block;
+}
+nav{display:flex;align-items:center;gap:36px;}
+nav a{color:rgba(255,255,255,.78);font-size:14px;font-weight:500;text-decoration:none;letter-spacing:.4px;transition:color .2s;}
+nav a:hover{color:#fff;}
+.nav-cta{
+  background:var(--lime);color:#0a2e1a!important;
+  padding:10px 22px;border-radius:50px;
+  font-weight:600;font-size:14px;
+  transition:transform .2s,box-shadow .2s!important;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,241,53,.35);}
+
+/* BURGER MENU */
+.burger{
+  display:none;flex-direction:column;justify-content:center;
+  gap:5px;cursor:pointer;padding:6px;z-index:200;
+  background:none;border:none;
+}
+.burger span{
+  display:block;width:24px;height:2px;
+  background:#fff;border-radius:2px;
+  transition:transform .3s,opacity .3s;
+}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* MOBILE NAV DRAWER */
+.mobile-nav{
+  display:none;
+  position:fixed;inset:0;z-index:150;
+  background:rgba(10,46,26,.97);
+  backdrop-filter:blur(16px);
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s;
+}
+.mobile-nav.open{opacity:1;pointer-events:all;}
+.mobile-nav a{
+  color:rgba(255,255,255,.78);font-size:28px;
+  font-family:'Bebas Neue',sans-serif;letter-spacing:3px;
+  text-decoration:none;padding:12px 24px;
+  transition:color .2s;
+}
+.mobile-nav a:hover{color:var(--lime);}
+.mobile-nav .nav-cta{
+  background:var(--lime);color:#0a2e1a!important;
+  padding:14px 36px;border-radius:50px;
+  font-size:24px;margin-top:16px;
+}
+.mobile-nav-close{
+  position:absolute;top:24px;right:5%;
+  background:none;border:none;cursor:pointer;
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.2);
+  transition:border-color .2s,background .2s;
+}
+.mobile-nav-close:hover{border-color:var(--lime);background:rgba(200,241,53,.08);}
+.mobile-nav-close svg{width:18px;height:18px;stroke:#fff;stroke-width:2.5;}
+
+/* HERO */
+.hero{
+  position:relative;height:100vh;min-height:700px;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+  padding-top:80px;
+}
+.hero-content{
+  position:relative;z-index:2;
+  top: 40px;
+
+  width:100%;padding:0 5% 80px;
+  display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:60px;
+}
+.hero-img{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1600&auto=format&fit=crop&q=80');
+  background-size:cover;background-position:center 30%;
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,46,26,.92) 0%,rgba(10,46,26,.55) 45%,rgba(10,46,26,.2) 100%);
+}
+/* Court lines decorative element */
+.court-lines{
+  position:absolute;right:0;top:0;bottom:0;width:55%;
+  pointer-events:none;
+  overflow:hidden;
+}
+.court-lines svg{width:100%;height:100%;opacity:.12;}
+
+.hero-left{}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(200,241,53,.15);border:1px solid rgba(200,241,53,.3);
+  color:var(--lime);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:6px 16px;border-radius:50px;margin-bottom:24px;
+}
+.hero h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(64px,7vw,100px);
+  line-height:.95;color:#fff;
+  letter-spacing:1px;margin-bottom:28px;
+}
+.hero h1 em{color:var(--lime);font-style:normal;}
+.hero-desc{
+  color:rgba(255,255,255,.72);font-size:18px;
+  max-width:480px;margin-bottom:40px;line-height:1.65;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:15px 30px;border-radius:50px;
+  font-weight:600;font-size:15px;text-decoration:none;
+  transition:.25s;letter-spacing:.2px;
+}
+.btn-lime{background:var(--lime);color:#0a2e1a;}
+.btn-lime:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(200,241,53,.3);}
+.btn-outline{border:1.5px solid rgba(255,255,255,.4);color:#fff;}
+.btn-outline:hover{background:rgba(255,255,255,.1);}
+.btn svg{width:16px;height:16px;flex-shrink:0;}
+
+.hero-right{
+  display:flex;flex-direction:column;gap:12px;align-items:flex-end;
+}
+.hero-stat{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+  border-radius:16px;
+  padding:20px 28px;
+  min-width:200px;text-align:right;
+}
+.hero-stat strong{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:52px;color:#fff;letter-spacing:1px;
+  display:block;line-height:1;
+}
+.hero-stat strong em{color:var(--lime);font-style:normal;}
+.hero-stat span{color:rgba(255,255,255,.55);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;}
+
+/* MARQUEE */
+.marquee-bar{
+  background:var(--lime);padding:14px 0;overflow:hidden;
+}
+.marquee-track{
+  display:flex;gap:0;white-space:nowrap;
+  animation:marquee 22s linear infinite;
+}
+.marquee-track span{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:17px;letter-spacing:3px;color:#0a2e1a;
+  padding:0 32px;
+  display:inline-flex;align-items:center;gap:32px;
+}
+.marquee-track span::after{content:"◆";font-size:8px;margin-left:32px;}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ABOUT */
+.about{padding:120px 5%;}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:var(--green);margin-bottom:16px;
+}
+.section-eyebrow::before{
+  content:'';width:24px;height:2px;background:var(--lime);border-radius:2px;
+}
+.about h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,5vw,72px);
+  line-height:.95;color:var(--green);
+  letter-spacing:1px;margin-bottom:24px;
+}
+.about h2 em{
+  -webkit-text-stroke:2px var(--green);
+  color:transparent;font-style:normal;
+}
+.about-desc{color:var(--text);font-size:17px;line-height:1.75;margin-bottom:36px;}
+.pillars{display:flex;flex-direction:column;gap:20px;}
+.pillar{
+  display:flex;align-items:flex-start;gap:18px;
+  padding:22px;border-radius:16px;
+  background:#fff;
+  border:1px solid rgba(10,46,26,.08);
+  transition:border-color .2s,box-shadow .2s;
+}
+.pillar:hover{border-color:rgba(200,241,53,.6);box-shadow:0 6px 24px rgba(10,46,26,.07);}
+.pillar-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--lime);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:20px;
+}
+.pillar-icon img{width:22px;height:22px;filter:brightness(0);}
+.pillar-text h4{font-size:16px;font-weight:600;color:var(--green);margin-bottom:4px;}
+.pillar-text p{font-size:14px;color:var(--text);line-height:1.6;}
+
+.about-visual{position:relative;}
+.about-img-wrap{
+  border-radius:24px;overflow:hidden;
+  aspect-ratio:4/5;
+}
+.about-img-wrap img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s;
+}
+.about-img-wrap:hover img{transform:scale(1.03);}
+.about-badge{
+  position:absolute;bottom:-20px;left:-20px;
+  background:var(--green);color:#fff;
+  padding:20px 24px;border-radius:20px;
+  box-shadow:0 12px 40px rgba(10,46,26,.25);
+}
+.about-badge strong{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:42px;color:var(--lime);display:block;line-height:1;
+}
+.about-badge span{font-size:13px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:1px;}
+
+/* STORIES */
+.stories{background:var(--green);padding:120px 5%;}
+.stories-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:60px;
+}
+.stories h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,5vw,76px);
+  color:#fff;line-height:.95;letter-spacing:1px;
+  max-width:560px;
+}
+.stories h2 em{color:var(--lime);font-style:normal;}
+.stories-meta{
+  text-align:right;max-width:320px;
+  color:rgba(255,255,255,.55);font-size:15px;line-height:1.7;
+}
+.story-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  grid-template-rows:auto;
+  gap:20px;
+}
+.story-card{
+  border-radius:20px;overflow:hidden;position:relative;
+  background:#fff;
+}
+.story-card.large{grid-row:span 1;}
+.story-img{
+  width:100%;aspect-ratio:3/2;
+  object-fit:cover;display:block;
+  transition:transform .5s;
+}
+.story-card.large .story-img{aspect-ratio:4/3;}
+.story-card:hover .story-img{transform:scale(1.04);}
+.story-img-wrap{overflow:hidden;position:relative;}
+.story-category{
+  position:absolute;top:14px;left:14px;
+  background:var(--lime);color:#0a2e1a;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:5px 12px;border-radius:50px;
+}
+.story-body{padding:22px 24px 26px;}
+.story-body h3{
+  font-size:17px;font-weight:600;color:#111;
+  margin-bottom:8px;line-height:1.35;
+}
+.story-card.large .story-body h3{font-size:22px;}
+.story-body p{font-size:14px;color:#666;line-height:1.6;}
+.story-byline{
+  display:flex;align-items:center;gap:10px;margin-top:16px;
+}
+.byline-avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--lime);color:#0a2e1a;
+  font-weight:700;font-size:12px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.byline-info small{display:block;font-size:12px;color:#888;}
+.byline-info strong{font-size:13px;font-weight:600;color:#333;}
+
+/* EVENTS */
+.events{padding:120px 5%;}
+.events-header{text-align:center;margin-bottom:70px;}
+.events-header .section-eyebrow{justify-content:center;}
+.events-header h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,5vw,76px);
+  color:var(--green);letter-spacing:1px;
+  margin-bottom:16px;
+}
+.events-header p{
+  color:var(--text);font-size:17px;max-width:560px;margin:auto;
+}
+.events-mosaic{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:280px 280px;
+  gap:16px;
+}
+.ev-tile{
+  border-radius:20px;overflow:hidden;position:relative;
+  cursor:pointer;
+}
+.ev-tile img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s;
+}
+.ev-tile:hover img{transform:scale(1.06);}
+.ev-tile-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,46,26,.8) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+  display:flex;align-items:flex-end;padding:20px;
+}
+.ev-tile:hover .ev-tile-overlay{opacity:1;}
+.ev-tile-label{
+  color:#fff;font-size:15px;font-weight:600;line-height:1.3;
+}
+.ev-tile:nth-child(1){grid-column:span 4;grid-row:span 2;}
+.ev-tile:nth-child(2){grid-column:span 5;}
+.ev-tile:nth-child(3){grid-column:span 3;}
+.ev-tile:nth-child(4){grid-column:span 4;}
+.ev-tile:nth-child(5){grid-column:span 4;}
+
+/* TESTIMONIALS */
+.testimonials{
+  background:var(--sand);
+  padding:120px 5%;
+}
+.test-header{text-align:center;margin-bottom:64px;}
+.test-header .section-eyebrow{justify-content:center;}
+.test-header h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,5vw,76px);
+  color:var(--green);letter-spacing:1px;margin-bottom:14px;
+}
+.test-header p{color:var(--text);font-size:17px;max-width:520px;margin:auto;}
+.test-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+}
+.test-card{
+  background:#fff;border-radius:20px;padding:32px;
+  border:1px solid rgba(10,46,26,.07);
+  transition:box-shadow .2s,transform .2s;
+}
+.test-card:hover{
+  box-shadow:0 12px 40px rgba(10,46,26,.1);
+  transform:translateY(-4px);
+}
+.test-stars{
+  display:flex;gap:4px;margin-bottom:18px;
+}
+.test-stars span{color:var(--lime);font-size:16px;}
+.test-quote{
+  font-size:16px;line-height:1.7;color:#333;margin-bottom:24px;
+  font-style:italic;
+}
+.test-author{display:flex;align-items:center;gap:14px;}
+.test-avatar{
+  width:44px;height:44px;border-radius:50%;
+  object-fit:cover;border:2px solid var(--lime);
+}
+.test-author-info strong{font-size:14px;font-weight:600;color:#111;display:block;}
+.test-author-info small{font-size:13px;color:#888;}
+
+/* CTA */
+.cta-section{
+  padding:160px 5%;
+  background:var(--green);
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+.cta-bg-lines{
+  position:absolute;inset:0;pointer-events:none;
+}
+.cta-section h2{
+  position:relative;z-index:2;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(56px,6vw,92px);
+  color:#fff;letter-spacing:1px;line-height:.95;
+  max-width:900px;margin:0 auto 24px;
+  text-align:center;
+}
+.cta-section h2 em{color:var(--lime);font-style:normal;}
+.cta-section p{
+  position:relative;z-index:2;
+  color:rgba(255,255,255,.65);font-size:18px;
+  max-width:560px;margin:auto;margin-bottom:48px;line-height:1.7;
+}
+.cta-section .btn{position:relative;z-index:2;}
+.cta-form{
+  position:relative;z-index:2;
+  display:flex;gap:12px;max-width:480px;margin:auto;
+  margin-bottom:20px;
+}
+.cta-form input{
+  flex:1;padding:15px 20px;border-radius:50px;
+  border:none;background:rgba(255,255,255,.1);
+  color:#fff;font-size:15px;font-family:'DM Sans',sans-serif;
+  border:1.5px solid rgba(255,255,255,.2);
+  outline:none;transition:border-color .2s;
+}
+.cta-form input::placeholder{color:rgba(255,255,255,.4);}
+.cta-form input:focus{border-color:var(--lime);}
+.cta-note{
+  position:relative;z-index:2;
+  color:rgba(255,255,255,.4);font-size:13px;
+}
+
+/* FOOTER */
+footer{
+  background:#050f0a;
+  color:#fff;
+  padding:80px 5% 40px;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;
+  margin-bottom:60px;
+}
+.footer-brand .logo{font-size:28px;display:inline-block;margin-bottom:16px;}
+.footer-brand p{color:rgba(255,255,255,.45);font-size:14px;line-height:1.7;max-width:260px;}
+.footer-col h5{
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--lime);margin-bottom:18px;
+}
+.footer-col a{
+  display:block;color:rgba(255,255,255,.5);
+  text-decoration:none;font-size:14px;
+  margin-bottom:10px;transition:color .2s;
+}
+.footer-col a:hover{color:#fff;}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:30px;
+  display:flex;justify-content:space-between;align-items:center;
+  color:rgba(255,255,255,.3);font-size:13px;
+}
+.footer-bottom a{color:rgba(255,255,255,.4);text-decoration:none;}
+
+/* DIVIDER */
+.section-divider{
+  height:1px;background:rgba(10,46,26,.1);
+  margin:0 5%;
+}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .story-grid{grid-template-columns:1fr 1fr;gap:16px;}
+  .story-card.large{grid-column:span 2;}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px;}
+}
+@media(max-width:860px){
+  .burger{display:flex;}
+  .mobile-nav{display:flex;}
+  nav{display:none;}
+
+  .hero{
+    align-items:stretch;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding-top:72px; /* header height */
+  }
+  .hero-content{
+    grid-template-columns:1fr;
+    gap:32px;
+    padding-bottom:60px;
+    top: 300px;
+  }
+  .hero-right{
+    flex-direction:row;align-items:flex-start;
+    flex-wrap:wrap;justify-content:flex-start;
+  }
+  .hero-stat{flex:1;min-width:140px;text-align:left;}
+  .hero h1{font-size:clamp(54px,12vw,80px);}
+  .hero-desc{font-size:16px;}
+
+  .about{padding:80px 5%;}
+  .about-grid{grid-template-columns:1fr;gap:48px;}
+  .about-visual{order:-1;}
+  .about-badge{bottom:20px;left:20px;}
+
+  .stories{padding:80px 5%;}
+  .stories-header{flex-direction:column;align-items:flex-start;gap:16px;}
+  .stories-meta{text-align:left;max-width:none;}
+  .story-grid{grid-template-columns:1fr;}
+  .story-card.large{grid-column:span 1;}
+
+  .events{padding:80px 5%;}
+  .events-mosaic{
+    grid-template-rows:auto;
+    display:flex;flex-direction:column;
+  }
+  .ev-tile{height:220px;}
+
+  .testimonials{padding:80px 5%;}
+  .test-grid{grid-template-columns:1fr;}
+
+  .cta-section{padding:100px 5%;}
+  .cta-section h2{font-size:clamp(48px,10vw,72px);}
+  .cta-form{flex-direction:column;}
+  .cta-form input{text-align:center;}
+
+  .footer-grid{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;gap:16px;text-align:center;}
+  .footer-bottom > div{justify-content:center;}
+}
+@media(max-width:480px){
+  .hero{min-height:100svh;}
+  .hero h1{font-size:clamp(48px,14vw,72px);}
+  .hero-stat{min-width:120px;}
+  .hero-stat strong{font-size:38px;}
+  .hero-actions{flex-direction:column;align-items:flex-start;}
+  .btn{width:100%;justify-content:center;}
+  .about h2{font-size:clamp(40px,10vw,56px);}
+  .stories h2{font-size:clamp(40px,10vw,56px);}
+  .events-header h2{font-size:clamp(40px,10vw,56px);}
+  .test-header h2{font-size:clamp(40px,10vw,56px);}
+  .cta-form{gap:10px;}
+  .cta-form input,.cta-form .btn{width:100%;}
+  .footer-grid{gap:32px;}
+  .about-badge{bottom:10px;left:10px;padding:14px 18px;}
+  .about-badge strong{font-size:32px;}
+}
+
+
+/* BENEFITS */
+.benefits {
+  background: var(--sand);
+  padding: 120px 5%;
+}
+.benefits-header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+.benefits-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 5vw, 76px);
+  color: var(--green);
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  line-height: .95;
+}
+.benefits-header h2 em { color: var(--lime); font-style: normal; }
+.benefits-header .section-eyebrow { justify-content: center; }
+.benefits-header p {
+  color: var(--text);
+  font-size: 17px;
+  max-width: 420px;
+  margin: auto;
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.benefit-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 32px;
+  border: 1px solid rgba(10, 46, 26, .07);
+  transition: box-shadow .2s, transform .2s, border-color .2s;
+}
+.benefit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(10, 46, 26, .09);
+  border-color: rgba(200, 241, 53, .5);
+}
+.benefit-icon {
+  font-size: 28px;
+  width: 56px; height: 56px;
+  background: var(--lime);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.benefit-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.benefit-card p {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+@media (max-width: 860px) {
+  .benefits { padding: 80px 5%; }
+  .benefits-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .benefits-grid { grid-template-columns: 1fr; }
+}
+
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <a href="#" class="logo">
+    <span class="logo-dot"></span> Tennis Alumni
+  </a>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#stories">Alumni</a>
+    <a href="#benefits">Benefits</a>
+    <a href="#join">Membership</a>
+    <a href="#join" class="nav-cta">Join Free</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#stories" class="mobile-link">Alumni</a>
+  <a href="#events" class="mobile-link">Events</a>
+  <a href="#join" class="mobile-link">Membership</a>
+  <a href="#join" class="nav-cta mobile-link">Join Free</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- Court lines SVG decoration -->
+  <div class="court-lines">
+    <svg viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMid slice">
+      <rect x="80" y="50" width="440" height="800" stroke="white" stroke-width="2.5"/>
+      <line x1="80" y1="450" x2="520" y2="450" stroke="white" stroke-width="2.5"/>
+      <rect x="175" y="50" width="250" height="800" stroke="white" stroke-width="1.5"/>
+      <line x1="175" y1="200" x2="425" y2="200" stroke="white" stroke-width="1.5"/>
+      <line x1="175" y1="700" x2="425" y2="700" stroke="white" stroke-width="1.5"/>
+      <line x1="300" y1="200" x2="300" y2="700" stroke="white" stroke-width="1.5"/>
+      <circle cx="300" cy="450" r="40" stroke="white" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        Collegiate Tennis Network
+      </div>
+      <h1>Stay In<br>The <em>Game.</em><br>Forever.</h1>
+      <p class="hero-desc">The professional network built exclusively for former collegiate tennis players. Connect, compete, and grow with people who understand the grind.</p>
+      <div class="hero-actions">
+        <a href="#join" class="btn btn-lime">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Join The Network
+        </a>
+        <a href="#stories" class="btn btn-outline">Meet Alumni</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <strong>700<em>+</em></strong>
+        <span>Alumni Members</span>
+      </div>
+      <div class="hero-stat">
+        <strong>25<em>+</em></strong>
+        <span>Cities Represented</span>
+      </div>
+      <div class="hero-stat">
+        <strong>D1–D3</strong>
+        <span>All Divisions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Tennis Alumni Network</span>
+    <span>Stay Connected</span>
+    <span>Collegiate Players</span>
+    <span>Grow Your Network</span>
+    <span>Lifelong Community</span>
+    <span>D1 · D2 · D3</span>
+    <span>Mentorship & Careers</span>
+    <span>Tennis Alumni Network</span>
+    <span>Stay Connected</span>
+    <span>Collegiate Players</span>
+    <span>Grow Your Network</span>
+    <span>Lifelong Community</span>
+    <span>D1 · D2 · D3</span>
+    <span>Mentorship & Careers</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-left">
+      <div class="section-eyebrow">Who We Are</div>
+      <h2>Built By<br>Players,<br>For <em>Players</em></h2>
+      <p class="about-desc">Collegiate tennis gave you discipline, competitiveness, and a team. That doesn't have to stop at graduation. TAN connects former student-athletes through the game they love — and the careers they're building.</p>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🎾</div>
+          <div class="pillar-text">
+            <h4>Local Tennis Community</h4>
+            <p>Find alumni near you, join city leagues, and keep competing with players who share your experience.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">💼</div>
+          <div class="pillar-text">
+            <h4>Career Network</h4>
+            <p>A nationwide community across finance, law, tech, healthcare, sports management, and entrepreneurship.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🤝</div>
+          <div class="pillar-text">
+            <h4>Mentorship Programs</h4>
+            <p>Give back to current student-athletes and recent graduates — or find someone who's walked your path.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-visual">
+      <div class="about-img-wrap">
+        <img
+          src="https://images.pexels.com/photos/32289806/pexels-photo-32289806.jpeg?w=800&auto=format&fit=crop&q=80"
+          alt="Tennis player in action"
+          loading="lazy"
+        />
+      </div>
+      <div class="about-badge">
+        <strong>100+</strong>
+        <span>Active Mentors</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP BENEFITS -->
+
+
+<div class="section-divider"></div>
+
+<!-- ALUMNI STORIES -->
+<section class="stories" id="stories">
+  <div class="stories-header">
+    <div>
+      <div class="section-eyebrow" style="color:rgba(200,241,53,.7);">Alumni Stories</div>
+      <h2>Alumni Making<br><em>An Impact</em></h2>
+    </div>
+    <div class="stories-meta">
+      Former collegiate players leading in business, medicine, sports, entrepreneurship, and beyond.
+    </div>
+  </div>
+
+  <div class="story-grid">
+    <div class="story-card large">
+      <div class="story-img-wrap">
+        <span class="story-category">Leadership</span>
+        <img class="story-img"
+          src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&auto=format&fit=crop&q=80"
+          alt="NCAA to CEO story"
+          loading="lazy"
+        />
+      </div>
+      <div class="story-body">
+        <h3>From NCAA Champion to CEO: How Court Mentality Built a $40M Company</h3>
+        <p>Former All-American Marcus Lee on translating competitive tennis into startup success — and why tiebreaks prepared him for every board meeting.</p>
+        <div class="story-byline">
+          <div class="byline-avatar">ML</div>
+          <div class="byline-info">
+            <strong>Marcus Lee</strong>
+            <small>CEO, Apex Sports Analytics · Stanford '14</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <span class="story-category">Entrepreneurship</span>
+        <img class="story-img"
+          src="https://images.unsplash.com/photo-1560012057-4372e14c5085?w=600&auto=format&fit=crop&q=80"
+          alt="Startup story"
+          loading="lazy"
+        />
+      </div>
+      <div class="story-body">
+        <h3>Building a Startup With Teammates From the Loop</h3>
+        <p>How two former doubles partners became co-founders — and why their on-court chemistry translated perfectly into product development.</p>
+        <div class="story-byline">
+          <div class="byline-avatar">SK</div>
+          <div class="byline-info">
+            <strong>Sarah Kim</strong>
+            <small>Co-Founder, Rallyr · UCLA '18</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <span class="story-category">Giving Back</span>
+        <img class="story-img"
+          src="https://images.pexels.com/photos/35214642/pexels-photo-35214642.jpeg?w=600&auto=format&fit=crop&q=80"
+          alt="Mentorship story"
+          loading="lazy"
+        />
+      </div>
+      <div class="story-body">
+        <h3>Mentoring the Next Generation of Student Athletes</h3>
+        <p>Dr. Priya Nair on returning to her alma mater every summer to coach not just tennis — but career strategy, identity, and life beyond sport.</p>
+        <div class="story-byline">
+          <div class="byline-avatar">PN</div>
+          <div class="byline-info">
+            <strong>Dr. Priya Nair</strong>
+            <small>Physician · Duke '12</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits" id="benefits">
+  <div class="benefits-header">
+    <div class="section-eyebrow">Membership Perks</div>
+    <h2>Everything You Get<br>When You <em>Join</em></h2>
+    <p>One free membership. A lifetime of value.</p>
+  </div>
+
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">🎾</div>
+      <h3>Hit With Alumni Near You</h3>
+      <p>Find verified former collegiate players in your city to hit with, join leagues, or just get a match in on a weeknight.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">💼</div>
+      <h3>Career Introductions</h3>
+      <p>Access a private directory of alumni across every industry. Warm intros, job referrals, and inside tracks — from people who already trust you.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🤝</div>
+      <h3>Mentorship Matching</h3>
+      <p>Get paired with a senior alumni mentor in your field, or give back by mentoring current student-athletes navigating the transition out of sport.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📍</div>
+      <h3>City Chapters</h3>
+      <p>Join your local chapter for regular meetups, social hits, and events in 25+ cities. New chapters launching every quarter.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🏆</div>
+      <h3>Alumni Tournaments</h3>
+      <p>Compete in exclusive TAN-organized tournaments — round robins, team formats, and city championships for all levels.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📬</div>
+      <h3>The Weekly Baseline</h3>
+      <p>Our member newsletter with job postings, event announcements, alumni spotlights, and career advice — every Monday morning.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="test-header">
+    <div class="section-eyebrow">Member Stories</div>
+    <h2>What Alumni Say</h2>
+    <p>Real experiences from members across the country who found their footing through the network.</p>
+  </div>
+
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="test-quote">"I moved to Austin not knowing a soul. Within three weeks of joining, I had a hitting partner, two job referrals, and a group of people I now call close friends."</p>
+      <div class="test-author">
+        <img class="test-avatar" src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=80" alt="James portrait" loading="lazy" />
+        <div class="test-author-info">
+          <strong>James Crawford</strong>
+          <small>Texas A&M '19 · Software Engineer</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-card">
+      <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="test-quote">"The mentorship program connected me with a VP at a company I'd been trying to break into for two years. One conversation changed the trajectory of my career."</p>
+      <div class="test-author">
+        <img class="test-avatar" src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=80" alt="Alicia portrait" loading="lazy" />
+        <div class="test-author-info">
+          <strong>Alicia Moreno</strong>
+          <small>Georgetown '21 · Finance Associate</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-card">
+      <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="test-quote">"Playing college tennis is something you never really stop missing. TAN gave me a community that understands exactly what that experience meant — and keeps it alive."</p>
+      <div class="test-author">
+        <img class="test-avatar" src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=80" alt="Tom portrait" loading="lazy" />
+        <div class="test-author-info">
+          <strong>Tom Nakamura</strong>
+          <small>Ohio State '16 · Sports Attorney</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="join">
+  <!-- Court lines bg -->
+  <div class="cta-bg-lines">
+    <svg width="100%" height="100%" viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="opacity:.07;">
+      <rect x="200" y="40" width="1000" height="720" stroke="white" stroke-width="2" fill="none"/>
+      <line x1="200" y1="400" x2="1200" y2="400" stroke="white" stroke-width="2"/>
+      <rect x="400" y="40" width="600" height="720" stroke="white" stroke-width="1.5" fill="none"/>
+      <line x1="400" y1="180" x2="1000" y2="180" stroke="white" stroke-width="1.5"/>
+      <line x1="400" y1="620" x2="1000" y2="620" stroke="white" stroke-width="1.5"/>
+      <line x1="700" y1="180" x2="700" y2="620" stroke="white" stroke-width="1.5"/>
+      <circle cx="700" cy="400" r="80" stroke="white" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="section-eyebrow" style="justify-content:center;position:relative;z-index:2;color:var(--lime);">
+    Free Membership
+  </div>
+  <h2>Your Tennis<br>Network Didn't End<br>At <em>Graduation.</em></h2>
+  <p>Join former collegiate players who are using TAN to find community, opportunity, and a reason to keep competing.</p>
+
+  <div class="cta-form">
+    <input type="email" placeholder="Enter your email address" />
+    <a href="#" class="btn btn-lime">Join Free</a>
+  </div>
+  <p class="cta-note">No payment required · Takes 60 seconds · Verified alumni only</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo"><span class="logo-dot"></span> Tennis Alumni</a>
+      <p>A professional network for former collegiate tennis players — built by players, for players.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Network</h5>
+      <a href="#">Find Alumni</a>
+      <a href="#">City Groups</a>
+      <a href="#">Mentors</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#about">About</a>
+      <a href="#stories">Alumni</a>
+      <a href="#benefits">Benefits</a>
+      <a href="#join">Membership</a>
+    </div>
+  
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Tennis Alumni Network. All rights reserved.</span>
+    <div style="display:flex;gap:24px;">
+      
+    </div>
+  </div>
+</footer>
+
+<script>
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Burger menu
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobileNav');
+const mobileNavClose = document.getElementById('mobileNavClose');
+
+function closeMenu(){
+  burger.classList.remove('open');
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function toggleMenu(){
+  burger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+  document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+}
+burger.addEventListener('click', toggleMenu);
+mobileNavClose.addEventListener('click', closeMenu);
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+</script>
+</body>
+</html>
